@@ -1,0 +1,19 @@
+directed graph: n p n n
+undirected graph: n p n
+
+legend:
+n - node
+p - price
+d - directed
+u - undirected
+
+START_FILE
+d || u
+[node amount]
+[edge amount]
+[...]
+
+[start node] || NULL
+[end node] || NULL
+
+END_FILE

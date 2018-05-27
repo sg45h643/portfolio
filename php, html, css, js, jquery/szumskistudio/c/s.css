@@ -1,0 +1,306 @@
+* {
+    margin: auto;
+    padding: 0;
+    border: 0;
+}
+
+#hb {
+    background: url(../i/hb.jpg) repeat-x;
+    width: 100%;
+    height: 704px;
+}
+
+#h {
+    width: 1200px;
+    height: 704px;
+    background: url(../i/h.png) no-repeat;
+}
+
+#asz {
+    width: 332px;
+    height: 57px;
+    background: url(../i/asz.png) no-repeat;
+    position: relative;
+    left: 160px;
+    float: left;
+    top: 27px;
+}
+
+#h ul {
+    display: block;
+	list-style: none;
+    position: relative;
+    top: 40px;
+    left: 175px;
+    float: left;
+}
+
+#h li {
+    float: left;
+    padding-left: 20px;
+    font-family: tahoma;
+    font-size: 18px;
+}
+
+#h li a {
+    text-decoration: none;
+    color: #000000;   
+}
+
+#h li a:hover {
+    color: #43ca01;     
+}
+
+#h #p a {
+    color: #43ca01;
+}
+
+#h #p a:hover {
+    color: #000000;
+}
+
+#h #b1 {
+	position: relative;
+	z-index: 1;
+	top: 260px;
+	left: 112px;
+	background: url(../i/b1.png) no-repeat;
+	width: 635px;
+	height: 332px;
+}
+
+#fl {
+    clear: both;
+    width: 1000px;
+}
+
+#fl ul {
+    width: 600px;
+    display: block;
+	list-style: none;
+    padding: 20px 0 10px 35px;
+    position: relative;
+    top: 70px;
+    left: -10px;
+    float: left;
+}
+
+#fl li {
+    display: inline; 
+    padding-left: 20px; 
+}
+
+#fl li a {
+    text-decoration: none;
+    color: #000000;
+    font-family: tahoma;
+    font-size: 14px;    
+}
+
+#fl li a:hover {
+    color: #4b4b4b;  
+}
+
+#fl #k {
+    background: url(../i/k.png) no-repeat;
+    width: 214px;
+    height: 166px;
+    float: right;
+    position: relative;
+    top: -30px;
+    left: -120px;
+}
+
+#ca {
+    width: 970px;
+    position: relative;
+    left: 60px;
+    padding: 8px;
+}
+
+#c1 {
+    width: 320px;
+    float: left;
+}
+
+#c2 {
+    width: 320px;
+    float: left;
+}
+
+#c3 {
+    width: 320px;
+    float: left;
+}
+
+#c4 {
+    width: 320px;
+    float: left;
+    position: relative;
+    top: 23px;
+}
+
+#c5 {
+    width: 320px;
+    float: left;
+    position: relative;
+    top: 10px;
+    left: 15px;
+}
+
+#c6 {
+    width: 320px;
+    float: left;
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+
+.ch {
+    font-family: arial;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    position: relative;
+    top: -30px;
+    left: 27px;
+}
+
+.m {
+    font-family: arial;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    position: relative;
+    top: -8px;
+    left: 18px;  
+}
+
+.l {
+    background: url(../i/l.jpg) repeat-x;
+    width: 100%;
+    height: 13px;
+    clear: both;
+    position: relative;
+    top: 6px;
+    padding: 7px 0;
+}
+
+#cb {
+    width: 100%;
+    height: 271px;
+    background: url(../i/cb.jpg) repeat-x;
+}
+
+#cu {
+    height: 30px;
+    text-align: center;
+    font-family: verdana;
+    font-size: 18px;
+    position: relative;
+    top: 20px;
+}
+
+#cm {
+    width: 900px;
+    height: 160px;
+    margin: auto;
+    position: relative;
+    top: 30px;
+    padding-left: 100px;
+}
+
+#kb {
+    width: 124px;
+    height: 122px;
+    background: url(../i/kb.png) no-repeat;
+    float: left;
+    position: relative;
+    top: 10px;
+    padding: 0 10px;
+}
+
+#am {
+    width: 210px;
+    height: 152px;
+    background: url(../i/am.png) no-repeat;
+    float: left;
+    padding: 0 10px;
+}
+
+.ar {
+    width: 124px;
+    height: 122px;
+    background: url(../i/ar.png) no-repeat;
+    float: left;
+    position: relative;
+    top: 10px;
+    padding: 0 15px;
+}
+
+#fo {
+    width: 140px;
+    height: 115px;
+    background: url(../i/fo.png) no-repeat;
+    float: left;
+    position: relative;
+    top: 15px;
+    padding: 0 10px;
+}
+
+#cd {
+    width: 1000px;
+    padding-top: 15px;
+    margin: auto;
+}
+
+#cd ul {
+    display: block;
+	list-style: none;
+    position: relative;
+    left: -80px;
+}
+
+#cd li {
+    float: left;
+    font-family: verdana;
+    font-size: 18px;
+    color: #000000;
+}
+
+.cdh {
+    font-family: verdana;
+    font-size: 36px;
+    color: #000000;
+    position: relative;
+    top: 5px;
+}
+
+#m {
+    width: 1000px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+#m p {
+    text-indent: 35px;
+    padding: 15px;
+    word-spacing: 4px;
+}
+
+.mh {
+    padding: 15px 120px;
+}
+
+.mo {
+    padding: 15px 0 0 280px;
+}
+
+#f {
+    width: 1000px;
+    height: 25px;
+    font-family: verdana;
+    font-size: 12px;
+    text-align: right;
+    padding: 3px 0;
+}

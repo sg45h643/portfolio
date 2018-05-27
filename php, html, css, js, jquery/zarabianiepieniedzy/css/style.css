@@ -1,0 +1,98 @@
+#logo {
+	background-image: url(../images/zarabianie.jpg);
+	background-repeat:no-repeat;
+	background-position:center;
+	width:826px;
+	height:192px;
+	align:center;
+}
+
+#zarobie_teraz {
+	background-image: url(../images/chcezarobicteraz.jpg);
+	background-repeat:no-repeat;
+	background-position:center;
+	height:41px;
+	width:826px;
+}
+
+#money_now {
+	padding:10px;
+	font-family:verdana;
+	font-size:large;
+}
+
+#money_now a {
+	text-decoration:none;
+	color:red;
+}
+
+#menu {
+	width:150px;
+	height:500px;
+	border-top: 2px solid black;
+	border-right: 2px solid black;
+	border-left: 2px solid black;
+	border-bottom: 2px solid black;
+	background-color:#e6e7ff;
+}
+
+#tags {
+	font-family:Courier New;
+	font-size:14px;
+}
+
+#main {
+	padding: 25px;
+	border: 1px solid black;
+	background-color:#f8ffbc;
+}
+
+#txt {
+	text-indent:20px;
+	text-align:justify;
+}
+
+#przejsciowki a {
+	text-decoration:none;
+	color:blue;
+}
+
+#notes {
+	width:150px;
+	height:500px;
+	border-top: 2px solid black;
+	border-right: 2px solid black;
+	border-left: 2px solid black;
+	border-bottom: 2px solid black;
+	background-color:#e6e7ff;
+}
+
+#link-menu {
+	color:blue;
+}
+
+#kontakt a {
+	color:#000575;
+}
+
+#footer {
+	background-image: url(../images/footer.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	width:826px;
+	height:41px;
+}
+
+#footer-txt a {
+	text-decoration:none;
+	color:white;
+}
+
+#footer-txt2 {
+	text-align:right;
+	padding:9px;
+}
+
+#one {
+	width:150px;
+}

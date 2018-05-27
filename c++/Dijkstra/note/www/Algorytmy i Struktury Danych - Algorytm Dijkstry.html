@@ -1,0 +1,2476 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2">
+<meta http-equiv="Content-Language" content="pl">
+<title>Algorytmy i Struktury Danych - Algorytm Dijkstry</title>
+<meta name="description" content="Artykuł opisuje różne algorytmy wyszukujące informacje w zbiorach danych takich jak przedziały liczbowe, tablice, macierze, wektory, listy, drzewa, grafy, teksty itp.">
+<meta name="keywords" content="wyszukiwanie, algorytm, programowanie, c++, pascal, basic, informatyka, liceum, matura, olimpiada, matematyka">
+<link rel="stylesheet" type="text/css" href="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/001.css">
+<script type="text/javascript" language="javascript" src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/h.js"></script>
+<!-- base href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0138.php" -->
+</head>
+
+<body>
+
+<table style="border-collapse: collapse" width="100%" border="0" cellpadding="0">
+  <tbody><tr>
+    <td style="text-align: left" class="menu_l" valign="top" width="164"><a href="http://www.i-lo.tarnow.pl/"><img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/i-lo_logo.gif" style="margin-top: 12px" alt="Do strony głównej I LO w Tarnowie" width="164" border="0" height="170"></a></td>
+    <td style="text-align: center" class="menu_m" valign="top" nowrap="nowrap">
+    <a class="exit" href="http://edu.i-lo.tarnow.pl/inf/index.php"><span>Wyjście </span></a><a class="cont" href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/index.php"><span>Spis treści </span></a><a class="prev" href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0137.php"><span>Poprzedni </span></a><a class="next" href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0138a.php"><span>Następny </span></a>
+<p><img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/000_title.jpg" alt="tytuł" width="511" border="0" height="195"></p>
+    <span class="small">Prezentowane materiały są przeznaczone dla uczniów szkół ponadgimnazjalnych</span>.<br>
+    Autor artykułu: mgr Jerzy Wałaszek,&nbsp; wersja 2.0</td>
+    <td style="padding:8px; text-align: center" class="menu_r" valign="top" nowrap="nowrap" width="200">
+    <p class="small" style="line-height: 100%; margin-bottom: 0">&nbsp;&#169;2014 mgr Jerzy Wałaszek<br>
+    I LO w Tarnowie</p>
+    <p><img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/000_logo.gif" alt="logo" width="134" border="0" height="102"></p>
+    </td>
+  </tr>
+  </tbody></table>
+<h1 class="sb1">Najkrótsza ścieżka w grafie ważonym<br>
+Algorytm Dijkstry</h1>
+<hr size="1" color="#336699">
+<table style="border-collapse: collapse" class="sb1" id="table248" border="0" cellpadding="4" cellspacing="0">
+	<tbody><tr>
+		<td bgcolor="#CCCCCC"><b>Tematy pokrewne</b></td>
+<td bgcolor="#CCCCCC">&nbsp;</td>
+</tr>
+	<tr>
+		<td valign="top"><b><a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0122.php">Grafy</a></b><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0123.php">Podstawowe pojęcia dotyczące grafów</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0124.php">Reprezentacja grafów w komputerze</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0125.php">Przechodzenie grafów w głąb &#8211; DFS</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0126.php">Przechodzenie grafów wszerz &#8211; BFS</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0126a.php">Transpozycja grafu</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0126b.php">Kwadrat grafu</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0126c.php">Graf krawędziowy</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0126d.php">Stopień grafu</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0127.php">Znajdowanie ścieżki w grafie</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0128.php">Znajdowanie drogi w labiryncie</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0128a.php">Spójność grafu</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0129.php">Znajdowanie spójnych składowych w grafie</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0129a.php">Znajdowanie silnie spójnych 
+					składowych w grafie</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0130.php">Drzewa rozpinające grafu</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0130a.php">Znajdowanie mostów w grafie</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0130b.php">Znajdowanie punktów artykulacji w grafie</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0131.php">Grafy dwudzielne</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0131a.php">Kojarzenie małżeństw</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0132.php">Cykliczność grafu</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0133.php">Znajdowanie cykli w grafie</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0134.php">Istnienie cyklu lub ścieżki Eulera</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0135.php">Znajdowanie cyklu lub ścieżki Eulera</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0136.php">Znajdowanie cyklu lub ścieżki 
+					Hamiltona</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0137.php">Sortowanie topologiczne grafu 
+					skierowanego</a><br>
+		<font color="#FF0000"><b>Najkrótsza ścieżka w grafie ważonym &#8211; 
+					algorytm Dijkstry</b></font><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0138a.php">Najkrótsza ścieżka w grafie ważonym &#8211; 
+					algorytm Bellmana-Forda</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0138b.php">Najkrótsze ścieżki pomiędzy 
+					wszystkimi parami wierzchołków w grafie ważonym</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0139.php">Problem chińskiego listonosza</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0140.php">Problem komiwojażera</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0141.php">Minimalne drzewo rozpinające</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0142.php">Kolorowanie grafu</a><br>
+		<a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0143.php">Znajdowanie klik w grafie</a></td>
+		<td valign="top">&nbsp;</td>
+	</tr>
+</tbody></table>
+<div class="bl2">
+  <p class="mlink">&nbsp;</p></div>
+<div class="bl1">
+<h3>Problem</h3>
+<p class="bl2">W spójnym <a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0123.php#wagi">grafie ważonym</a> znaleźć 
+najkrótsze ścieżki od wybranego wierzchołka startowego do wszystkich pozostałych 
+wierzchołków.</p>
+<p class="bl2">&nbsp;</p>
+<p class="bl2">&nbsp;</p>
+<div class="sb1">
+		<p>Jednym z podstawowych problemów w teorii grafów jest znajdowanie 
+		połączeń pomiędzy dwoma wybranymi wierzchołkami. Ścieżką
+		<span class="rem">(ang. path)</span> nazywamy uporządkowany zbiór 
+		wierzchołków, które musimy kolejno przejść, aby dotrzeć w grafie od 
+		jednego wybranego wierzchołka do innego wybranego wierzchołka. Ścieżek 
+		takich może być kilka <span class="rem">(lub może nie istnieć żadna - 
+		wtedy wierzchołki nazywamy izolowanymi)</span>.</p>
+		<p>&nbsp;</p>
+		<table id="table1" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+			<tbody><tr>
+				<td>
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_01.gif" width="172" border="0" height="186"></td>
+				<td>Od wierzchołka <font color="#FF0000"><b>0</b></font> do 
+				wierzchołka <font color="#009900"><b>4</b></font><br>
+				można dojść wieloma różnymi<br>
+				ścieżkami:<p>ścieżka nr 1: <font color="#FF0000"><b>&nbsp;0</b></font> &#8211;
+				<b>3</b> &#8211; <font color="#009900"><b>4</b></font><br>
+				ścieżka nr 2: <b><font color="#FF0000">&nbsp;0</font></b> &#8211; <b>
+				1</b> &#8211; <b>3</b> &#8211; <font color="#009900"><b>4</b></font><br>
+				ścieżka nr 3: <b><font color="#FF0000">&nbsp;0</font></b> &#8211; <b>
+				1</b> &#8211; <b>2</b> &#8211; <b>3</b> &#8211;
+				<font color="#009900"><b>4</b></font><br>
+				ścieżka nr 4: <b><font color="#FF0000">&nbsp;0</font></b> &#8211; <b>
+				1</b> &#8211; <b>2</b> &#8211; <font color="#009900"><b>4</b></font><br>
+				&nbsp;</p></td>
+			</tr>
+		</tbody></table>
+		<p>&nbsp;</p>
+		<p>Jeśli z krawędziami grafu związane są <span class="b">wagi</span>, to 
+		każda ze ścieżek posiada swój <span class="b">koszt</span> przejścia 
+		równy sumie wag krawędzi łączących poszczególne wierzchołki ścieżki. Dla 
+		podanego wyżej grafu ścieżki od wierzchołka 0 do 4 mają następujący 
+		koszt:</p>
+		<blockquote>
+			<p>ścieżka nr 1 - koszt = 3 + 3 = 6<br>
+			ścieżka nr 2 - koszt = 3 + 6 + 3 = 12<br>
+			ścieżka nr 3 - koszt = 3 + 1 + 5 + 3&nbsp; = 12<br>
+			ścieżka nr 4 - koszt = 3 + 1 + 1 = 5</p>
+		</blockquote>
+		<p>Przez najkrótszą ścieżkę <span class="rem">(ang. shortest path)</span> 
+		łączącą w grafie dwa wybrane wierzchołki będziemy rozumieli ścieżkę o 
+		najmniejszym koszcie przejścia, czyli o najmniejszej sumie wag 
+		tworzących tę ścieżkę krawędzi.</p>
+		<p>&nbsp;</p>
+		<table id="table2" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+			<tbody><tr>
+				<td>
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_02.gif" width="172" border="0" height="186"></td>
+				<td>Od wierzchołka <font color="#FF0000"><b>0</b></font> do 
+				wierzchołka <font color="#009900"><b>4</b></font><br>
+				najkrótszą ścieżką jest<p><font color="#C0C0C0">ścieżka nr 1: <b>
+				&nbsp;0</b> &#8211; <b>3</b> &#8211; <b>4</b><br>
+				ścieżka nr 2: </font><b><font color="#C0C0C0">&nbsp;0</font></b><font color="#C0C0C0"> &#8211;
+				<b>1</b> &#8211; <b>3</b> &#8211; <b>4</b><br>
+				ścieżka nr 3: </font><b><font color="#C0C0C0">&nbsp;0</font></b><font color="#C0C0C0"> &#8211;
+				<b>1</b> &#8211; <b>2</b> &#8211; <b>3</b> &#8211; <b>4</b></font><br>
+				ścieżka nr 4: <b><font color="#FF0000">&nbsp;0</font></b> &#8211; <b>
+				1</b> &#8211; <b>2</b> &#8211; <font color="#009900"><b>4</b></font></p>
+				<p>o koszcie przejścia równym 5.</p></td>
+			</tr>
+		</tbody></table>
+		<p>&nbsp;</p>
+		<p>Jeśli wagi krawędzi są nieujemne, to problem znalezienia ścieżki o 
+		najniższym koszcie dojścia elegancko rozwiązuje algorytm
+		<a target="_blank" href="http://pl.wikipedia.org/wiki/Edsger_Dijkstra">
+		Dijkstry</a>. Algorytm ten pozwala znaleźć koszty dojścia od wierzchołka 
+		startowego v do każdego innego wierzchołka w grafie <span class="rem">(o 
+		ile istnieje odpowiednia ścieżka)</span>. Dodatkowo wyznacza on 
+		poszczególne ścieżki. Zasada pracy jest następująca:</p>
+		<p>&nbsp;</p><div class="bl1">Tworzymy dwa zbiory wierzchołków Q i S. 
+			Początkowo zbiór <i>Q</i> zawiera wszystkie wierzchołki grafu, a 
+			zbiór <i>S</i> jest pusty. Dla wszystkich wierzchołków <i>u</i> 
+			grafu za wyjątkiem startowego <i>v</i> ustawiamy koszt dojścia d(<i>u</i>) 
+			na nieskończoność. Koszt dojścia d(<i>v</i>) zerujemy. Dodatkowo 
+			ustawiamy poprzednik p(<i>u</i>) każdego wierzchołka <i>u</i> grafu 
+			na niezdefiniowany. Poprzedniki będą wyznaczały w kierunku odwrotnym 
+			najkrótsze ścieżki od wierzchołków <i>u</i> do wierzchołka 
+			startowego <i>v</i>. Teraz w pętli dopóki zbiór <i>Q</i> zawiera 
+			wierzchołki, wykonujemy następujące czynności:<ol>
+				<li>Wybieramy ze zbioru <i>Q</i> wierzchołek <i>u</i> o 
+				najmniejszym koszcie dojścia d(<i>u</i>).</li>
+				<li>Wybrany wierzchołek <i>u</i> usuwamy ze zbioru <i>Q</i> i 
+				dodajemy do zbioru <i>S</i>.</li>
+				<li>Dla każdego sąsiada <i>w</i> wierzchołka <i>u</i>, który 
+				jest wciąż w zbiorze <i>Q</i>, sprawdzamy, czy d(<i>w</i>) &gt; d(<i>u</i>) 
+				+ waga krawędzi <i>u&#8211;w</i>. Jeśli tak, to wyznaczamy nowy 
+				koszt dojścia do wierzchołka <i>w</i> jako: d(<i>w</i>) &#8592; 
+				d(<i>u</i>) + waga krawędzi <i>u&#8211;w</i>. Następnie 
+				wierzchołek <i>u</i> czynimy poprzednikiem <i>w</i>: p(<i>w</i>) &#8592;
+				<i>u</i>.</li>
+			</ol>
+		</div>
+		<p>Aby lepiej zrozumieć zasadę działania algorytmu Dijkstry, prześledźmy 
+		jego kolejne kroki w poniższej tabelce:</p>
+		<p>&nbsp;</p>
+		<table id="table4" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+			<tbody><tr>
+				<td valign="top" align="center">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_03.gif" width="218" border="0" height="171"></td>
+				<td>&nbsp;</td>
+				<td>Mamy ważony graf skierowany z wierzchołkiem startowym v = 0. 
+				Będziemy wyznaczać najniższe koszty dojścia od wyróżnionego 
+				wierzchołka do wszystkich pozostałych wierzchołków w grafie oraz 
+				najkrótsze ścieżki pomiędzy wyróżnionym wierzchołkiem, a 
+				wszystkimi pozostałymi.</td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_04.gif" width="282" border="0" height="201"></td>
+				<td>&nbsp;</td>
+				<td>Tworzymy dwa zbiory <i>S</i> i <i>Q</i>. Zbiór <i>S</i> jest 
+				początkowo pusty, a zbiór <i>Q</i> obejmuje wszystkie 
+				wierzchołki grafu. W zbiorze <i>S</i> znajdą się wierzchołki 
+				przetworzone przez algorytm Dijkstry, a w zbiorze <i>Q</i> będą 
+				wierzchołki wciąż czekające na przetworzenie.</td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_05.gif" width="282" border="0" height="201"></td>
+				<td>
+				<table style="border-collapse: collapse" border="1" bordercolor="#C0C0C0" cellpadding="2">
+					<tbody><tr>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#F0F0F0">
+						<i>u</i></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">0</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">1</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">2</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">3</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">4</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>d</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">0</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>p</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+					</tr>
+				</tbody></table>
+				</td>
+				<td>Tworzymy dwie tablice <i>d</i> i <i>p</i> o <i>n</i> elementach, gdzie n 
+				oznacza liczbę wierzchołków w grafie.<p>Elementy tablicy <i>d</i> 
+				będą zawierały minimalne koszty dojścia do poszczególnych 
+				wierzchołków z wierzchołka startowego. Początkowo w elementach
+				<i>d</i> umieszczamy wartość +nieskończoność. W elemencie <i>d</i>[<i>v</i>] 
+				umieszczamy zero.</p>
+				<p>Elementy tablicy <i>p</i> będą przechowywały numery 
+				wierzchołków-poprzedników na ścieżce od wierzchołka v. Idąc 
+				wstecz po tych numerach dotrzemy do wierzchołka startowego. We 
+				wszystkich elementach tablicy <i>p</i> umieszczamy wartość, która nie 
+				może oznaczać numeru wierzchołka, np. -1.</p></td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				&nbsp;<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_06.gif" width="268" border="0" height="201"></td>
+				<td>
+				<table style="border-collapse: collapse" border="1" bordercolor="#C0C0C0" cellpadding="2">
+					<tbody><tr>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#F0F0F0">
+						<i>u</i></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">0</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000">1</font></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">2</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">3</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000">4</font></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>d</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">0</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000"><b>3</b></font></td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000"><b>3</b></font></td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>p</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000"><b><span lang="en">&nbsp;</span>0</b></font></td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000"><b><span lang="en">&nbsp;</span>0</b></font></td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+					</tr>
+				</tbody></table>
+				</td>
+				<td>W zbiorze <i>Q</i> szukamy wierzchołka <i>u</i> o najmniejszym 
+				koszcie dojścia <i>d</i>[<i>u</i>]. Oczywiście, jest to wierzchołek 
+				startowy 0, dla którego <i>d</i>[0] = 0. Wierzchołek 0 przenosimy ze 
+				zbioru <i>Q</i> do <i>S</i>. Następnie przeglądamy wszystkich sąsiadów 
+				przeniesionego wierzchołka &#8211; tutaj są to wierzchołki 1 i 
+				4. Sprawdzamy, czy:<p><i>d</i>[1] &gt; <i>d</i>[0] + 3 ? &#8211; TAK, zatem 
+				<i>d</i>[1] &#8592; 
+				<i>d</i>[0] + 3 = 3. Do <i>p</i>[1] wpisujemy 0, czyli poprzednik na ścieżce.</p>
+				<p><i>d</i>[4] &gt; <i>d</i>[0] + 3 ? &#8211; TAK, zatem <i>d</i>[4] &#8592; 
+				<i>d</i>[0] + 3 = 3. 
+				Do <i>p</i>[4] wpisujemy 0, czyli poprzednik na ścieżce.</p></td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				&nbsp;<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_07.gif" width="270" border="0" height="183"></td>
+				<td>
+				<table style="border-collapse: collapse" border="1" bordercolor="#C0C0C0" cellpadding="2">
+					<tbody><tr>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#F0F0F0">
+						<i>u</i></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">0</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">1</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000">2</font></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">3</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">4</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>d</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">0</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00"><b>
+						<font color="#FF0000">4</font></b></td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>p</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000">&nbsp;<b>1</b></font></td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+					</tr>
+				</tbody></table>
+				</td>
+				<td>Ponownie w zbiorze <i>Q</i> szukamy wierzchołka <i>u</i> o 
+				najmniejszym koszcie dojścia <i>d</i>[<i>u</i>]. Są dwa takie 
+				wierzchołki: 1 i 4 <span class="rem">(<i>d</i>[1] = 3 i <i>d</i>[4] = 3)</span>. 
+				Wybieramy dowolny z nich, niech będzie to wierzchołek 1. 
+				Przenosimy go do zbioru <i>S</i> i sprawdzamy sąsiada 2:<p><i>d</i>[2] 
+				&gt; <i>d</i>[1] + 1 ? &#8211; TAK, zatem <i>d</i>[2] &#8592; <i>d</i>[1] + 1 = 4. Do 
+				<i>p</i>[2] wpisujemy 
+				1, czyli poprzednik na ścieżce.</p></td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_08.gif" width="263" border="0" height="185"></td>
+				<td>
+				<table style="border-collapse: collapse" border="1" bordercolor="#C0C0C0" cellpadding="2">
+					<tbody><tr>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#F0F0F0">
+						<i>u</i></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">0</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">1</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">2</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">3</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">4</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000">5</font></td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>d</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">0</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">4</td>
+						<td style="text-align: right" nowrap="nowrap">&#8734;</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00"><b>
+						<font color="#FF0000">5</font></b></td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>p</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">&nbsp;1</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00"><b>
+						<font color="#FF0000">4</font></b></td>
+					</tr>
+				</tbody></table>
+				</td>
+				<td>Kolejnym wierzchołkiem <i>u</i> w zbiorze <i>Q</i> o 
+				najniższym koszcie dojścia <i>d</i>[<i>u</i>] jest wierzchołek 4
+				<span class="rem">(<i>d</i>[4] = 3)</span>. Przenosimy go do zbioru <i>
+				S</i>, a następnie sprawdzamy koszt dojścia do jego sąsiada, 
+				wierzchołka 5:<p><i>d</i>[5] &gt; <i>d</i>[4] + 2 ? &#8211; TAK, zatem 
+				<i>d</i>[5] &#8592; <i>d</i>[4] + 2 
+				= 5. Do <i>p</i>[5] wpisujemy 4, czyli poprzednik na ścieżce.</p></td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_09.gif" width="259" border="0" height="186"></td>
+				<td>
+				<table style="border-collapse: collapse" border="1" bordercolor="#C0C0C0" cellpadding="2">
+					<tbody><tr>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#F0F0F0">
+						<i>u</i></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">0</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">1</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">2</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000">3</font></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">4</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>d</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">0</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">4</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00"><b>
+						<font color="#FF0000">7</font></b></td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>p</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">&nbsp;1</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00"><b>
+						<font color="#FF0000">&nbsp;2</font></b></td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">4</td>
+					</tr>
+				</tbody></table>
+				</td>
+				<td>Teraz ze zbioru Q przenosimy do <i>S</i> wierzchołek 2
+				<span class="rem">(<i>d</i>[2] = 4)</span>. Wierzchołek ten posiada w 
+				zbiorze Q dwóch sąsiadów: 3 i 5. Sprawdzamy ich koszty dojścia:<p>
+				<i>d</i>[3] &gt; <i>d</i>[2] + 3 ? &#8211; TAK, zatem <i>d</i>[3] &#8592; 
+				<i>d</i>[2] + 3 = 7. Do <i>p</i>[3] 
+				wpisujemy 2, czyli poprzednik na ścieżce.</p>
+				<p><i>d</i>[5] &gt; <i>d</i>[2] + 1 ? &#8211; NIE, nic dalej nie robimy z tym 
+				wierzchołkiem</p></td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_10.gif" width="264" border="0" height="181"></td>
+				<td>
+				<table style="border-collapse: collapse" border="1" bordercolor="#C0C0C0" cellpadding="2">
+					<tbody><tr>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#F0F0F0">
+						<i>u</i></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">0</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">1</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">2</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000">3</font></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">4</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>d</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">0</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">4</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00">
+						<font color="#FF0000"><b>6</b></font></td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>p</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">&nbsp;1</td>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#FFCC00"><b>
+						<font color="#FF0000">&nbsp;5</font></b></td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">4</td>
+					</tr>
+				</tbody></table>
+				</td>
+				<td>Do zbioru <i>S</i> przenosimy wierzchołek 5 <span class="rem">(<i>d</i>[5] 
+				= 5)</span>. W zbiorze <i>Q</i> ma on tylko jednego sąsiada, 
+				wierzchołek 3. Sprawdzamy koszt dojścia do wierzchołka 3:<p><i>d</i>[3] 
+				&gt; <i>d</i>[5] + 1 ? &#8211; TAK, zatem <i>d</i>[3] &#8592; <i>d</i>[5] + 1 = 6. Do 
+				<i>p</i>[3] wpisujemy 
+				5, czyli poprzednik na ścieżce.</p><p>Zwróć uwagę, że w tym 
+				przypadku algorytm znalazł lepszą ścieżkę do wierzchołka 3 o 
+				niższym koszcie.</p></td>
+			</tr>
+			<tr>
+				<td valign="top" align="center">
+				<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_11.gif" width="276" border="0" height="177"></td>
+				<td>
+				<table style="border-collapse: collapse" border="1" bordercolor="#C0C0C0" cellpadding="2">
+					<tbody><tr>
+						<td style="text-align: right" nowrap="nowrap" bgcolor="#F0F0F0">
+						<i>u</i></td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">0</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">1</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">2</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">
+						3</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">4</td>
+						<td style="text-align: right" class="small" nowrap="nowrap" bgcolor="#F0F0F0">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>d</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">0</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">4</td>
+						<td style="text-align: right" nowrap="nowrap">6</td>
+						<td style="text-align: right" nowrap="nowrap">
+						3</td>
+						<td style="text-align: right" nowrap="nowrap">5</td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" bgcolor="#F0F0F0"><i>p</i>[<i>u</i>]</td>
+						<td style="text-align: right" nowrap="nowrap">-1</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">&nbsp;1</td>
+						<td style="text-align: right" nowrap="nowrap">&nbsp;5</td>
+						<td style="text-align: right" nowrap="nowrap">
+						<span lang="en">&nbsp;</span>0</td>
+						<td style="text-align: right" nowrap="nowrap">4</td>
+					</tr>
+				</tbody></table>
+				</td>
+				<td>Do zbioru S przenosimy ostatni wierzchołek 3. Zbiór Q stał 
+				się pusty, zatem przeniesiony wierzchołek nie ma w zbiorze Q 
+				żadnych sąsiadów. Algorytm kończy się. W tablicy <i>d</i> mamy 
+				policzone koszty dojścia do każdego z wierzchołków grafu. W 
+				tablicy <i>p</i> znajdują się poprzedniki na ścieżce każdego 
+				wierzchołka, co pozwala odtworzyć ścieżki do poszczególnych 
+				wierzchołków grafu: idziemy wstecz po kolejnych poprzednikach, 
+				aż dojdziemy do wierzchołka startowego, dla którego nie istnieje 
+				poprzednik <span class="rem">(wartość -1)</span>.</td>
+			</tr>
+		</tbody></table>
+		<p>&nbsp;</p>
+		<p>Z tablic <i>d</i> i <i>p</i> odczytujemy:</p>
+		<ul>
+			<li>Dojście do wierzchołka 0: ścieżka pusta, koszt 0</li>
+			<li>Dojście do wierzchołka 1: 0&#8211;1, koszt 3</li>
+			<li>Dojście do wierzchołka 2: 0&#8211;1&#8211;2, koszt 4</li>
+			<li>Dojście do wierzchołka 3: 0&#8211;4&#8211;5&#8211;3, koszt 6</li>
+			<li>Dojście do wierzchołka 4: 0&#8211;4, koszt 3</li>
+			<li>Dojście do wierzchołka 5: 0&#8211;4&#8211;5, koszt 5</li>
+		</ul>
+		<p>&nbsp;</p>
+	<h4><a name="A1"></a>Algorytm Dijkstry obliczania najkrótszych ścieżek i 
+	kosztów dojścia w grafie ważonym &#8211; wersja poglądowa</h4>
+	<h5>Wejście</h5>
+	<div class="sb1">
+		<table id="table282" style="BORDER-COLLAPSE: collapse" border="0" cellpadding="2">
+			<tbody><tr>
+				<td valign="top" nowrap="nowrap"><i>n</i></td>
+				<td valign="top">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td>liczba wierzchołków w grafie, <i>n</i>
+					<img alt="symbol" src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/000_symbol_05.gif" width="8" border="0" height="8">
+					<span class="f">C</span></td>
+			</tr>
+			<tr>
+				<td valign="top" nowrap="nowrap"><i>graf</i></td>
+				<td valign="top">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td>zadany w dowolnie wybrany sposób, algorytm tego nie 
+				precyzuje. Definicja grafu powinna udostępniać wagi krawędzi.</td>
+			</tr>
+			<tr>
+				<td valign="top" nowrap="nowrap">v</td>
+				<td valign="top">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td>wierzchołek startowy, <i>v</i>
+					<img alt="symbol" src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/000_symbol_05.gif" width="8" border="0" height="8">
+					<span class="f">C</span></td>
+			</tr>
+		</tbody></table></div>
+	<h5>Wyjście:</h5>
+	<div class="sb1">
+		<table id="table13" style="border-collapse: collapse" border="0" cellpadding="2">
+			<tbody><tr>
+				<td valign="top" nowrap="nowrap"><i>d</i></td>
+				<td valign="top" nowrap="nowrap">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td valign="top"><i>n</i> elementowa tablica z kosztami dojścia 
+				od wierzchołka v do wierzchołka <i>i</i>-tego wzdłuż najkrótszej 
+				ścieżki. Koszt dojścia jest sumą wag krawędzi, przez które 
+				przechodzimy posuwając się wzdłuż wyznaczonej najkrótszej 
+				ścieżki.</td>
+			</tr>
+			<tr>
+				<td valign="top" nowrap="nowrap"><i>p</i></td>
+				<td valign="top" nowrap="nowrap">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td valign="top"><i>n</i> elementowa tablica z poprzednikami 
+				wierzchołków na wyznaczonej najkrótszej ścieżce. Dla <i>i</i>-tego 
+				wierzchołka grafu <i>p</i>[i] zawiera numer wierzchołka poprzedzającego 
+				na najkrótszej ścieżce</td>
+			</tr>
+		</tbody></table>
+		</div>
+	<h5>Elementy pomocnicze:</h5>
+	<div class="sb1">
+		<table id="table280" style="BORDER-COLLAPSE: collapse" border="0" cellpadding="2">
+			<tbody><tr>
+				<td valign="top" nowrap="nowrap"><i>S</i></td>
+				<td valign="top">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td>zbiór wierzchołków grafu o policzonych już najkrótszych 
+				ścieżkach od wybranego wierzchołka <i>v</i></td>
+			</tr>
+			<tr>
+				<td valign="top" nowrap="nowrap"><i>Q</i></td>
+				<td valign="top">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td>zbiór wierzchołków grafu, dla których najkrótsze ścieżki nie 
+				zostały jeszcze policzone</td>
+			</tr>
+			<tr>
+				<td valign="top" nowrap="nowrap"><i>u,w</i></td>
+				<td valign="top">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+				<td>wierzchołki, <i>u,w</i>
+					<img alt="symbol" src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/000_symbol_05.gif" width="8" border="0" height="8">
+					<span class="f">C</span></td>
+			</tr>
+			</tbody></table></div>
+	<h5><a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0001.php#prezentacja">Lista kroków:</a></h5>
+	<div class="bl1">
+		<table style="border-collapse: collapse" id="table281" border="0" cellpadding="2">
+			<tbody><tr>
+				<td valign="top">K01:</td>
+				<td valign="top" nowrap="nowrap"><i>S</i> &#8592; &#216;</td>
+				<td class="c" valign="top">; zbiór S ustawiamy jako pusty</td>
+			</tr>
+			<tr>
+				<td valign="top">K02:</td>
+				<td valign="top" nowrap="nowrap"><i>Q</i> &#8592; wszystkie wierzchołki 
+				grafu</td>
+				<td class="c" valign="top">&nbsp;</td>
+			</tr>
+			<tr>
+				<td valign="top">K03:</td>
+				<td valign="top" nowrap="nowrap">Utwórz <i>n</i> elementową tablicę <i>d</i></td>
+				<td class="c" valign="top">; tablica na koszty dojścia</td>
+			</tr>
+			<tr>
+				<td valign="top">K04:</td>
+				<td valign="top" nowrap="nowrap">Utwórz <i>n</i> elementową tablicę <i>p</i></td>
+				<td class="c" valign="top">; tablica poprzedników na ścieżkach</td>
+			</tr>
+			<tr>
+				<td valign="top">K05</td>
+				<td valign="top" nowrap="nowrap">Tablicę <i>d</i> wypełnij największą 
+				wartością dodatnią</td>
+				<td class="c" valign="top">&nbsp;</td>
+			</tr>
+			<tr>
+				<td valign="top">K06:</td>
+				<td valign="top" nowrap="nowrap"><i>d</i>[<i>v</i>] &#8592; 0</td>
+				<td class="c" valign="top">; koszt dojścia do samego siebie jest 
+				zawsze zerowy</td>
+			</tr>
+			<tr>
+				<td valign="top">K07:</td>
+				<td valign="top" nowrap="nowrap">Tablicę <i>p</i> wypełnij wartościami -1</td>
+				<td class="c" valign="top">; -1 oznacza brak poprzednika</td>
+			</tr>
+			<tr>
+				<td valign="top">K08:</td>
+				<td valign="top" nowrap="nowrap"><b>Dopóki</b> <i>Q</i> zawiera 
+				wierzchołki, <b>wykonuj</b> K09...K12</td>
+				<td class="c" valign="top">&nbsp;</td>
+			</tr>
+			<tr>
+				<td valign="top">K09:</td>
+				<td valign="top" nowrap="nowrap">&nbsp;&nbsp;&nbsp; Z <i>Q</i> do <i>S</i> 
+				przenieś wierzchołek <i>u</i> o najmniejszym <i>d</i>[<i>u</i>]</td>
+				<td class="c" valign="top">&nbsp;</td>
+			</tr>
+			<tr>
+				<td valign="top">K10:</td>
+				<td valign="top" nowrap="nowrap">&nbsp;&nbsp;&nbsp; <b>Dla</b> każdego 
+				sąsiada <i>w</i> wierzchołka <i>u</i>, <b>wykonuj</b> K11...K12</td>
+				<td class="c" valign="top">; przeglądamy sąsiadów przeniesionego 
+				wierzchołka </td>
+			</tr>
+			<tr>
+				<td valign="top">K11:</td>
+				<td valign="top" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<b>Jeśli</b> <i>w</i> nie jest w <i>Q</i>, <b>to następny obieg 
+				pętli</b> K10</td>
+				<td class="c" valign="top">; szukamy sąsiadów obecnych w Q</td>
+			</tr>
+			<tr>
+				<td valign="top">K12:</td>
+				<td valign="top" nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<b>Jeśli</b> <i>d</i>[<i>w</i>] &gt; <i>d</i>[<i>u</i>] + waga 
+				krawędzi <i>u&#8211;w</i>, <b>to</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>d</i>[<i>w</i>] &#8592;
+				<i>d</i>[<i>u</i>] + waga krawędzi <i>u&#8211;w</i><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>p</i>[<i>w</i>] &#8592;
+				<i>u</i></td>
+				<td class="c" valign="top">; sprawdzamy koszt dojścia<br>
+				; jeśli mamy niższy, to modyfikujemy koszt<br>
+				; i zmieniamy poprzednika w na u</td>
+			</tr>
+			<tr>
+				<td valign="top">K13:</td>
+				<td valign="top" nowrap="nowrap"><b>Zakończ</b></td>
+				<td class="c" valign="top">&nbsp;</td>
+			</tr>
+			</tbody></table></div>
+		<p>&nbsp;</p>
+		<p>Aby efektywnie zaimplementować <span class="b">algorytm Dijkstry</span>, 
+		musimy najpierw rozwiązać kilka problemów.</p>
+		<p>Pierwszym z nich jest sposób reprezentacji grafu w pamięci komputera. 
+		Ponieważ algorytm często będzie odwoływał się do wierzchołków 
+		sąsiadujących z wierzchołkiem przetwarzanym <span class="rem">(tzn. 
+		połączonych z nim krawędzią)</span>, to reprezentacja grafu powinna 
+		efektywnie umożliwiać szybkie wyszukiwanie sąsiadów. Warunek ten 
+		spełniają <a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0124.php#P4">listy sąsiedztwa</a>.</p>
+		<p>Drugim problemem jest sposób reprezentacji zbiorów <i>S</i> i <i>Q</i>. 
+		Zbiory te są ze sobą powiązane logicznie. Jeśli wierzchołek jest w 
+		zbiorze <i>Q</i>, to oczywiście nie ma go w zbiorze <i>S</i> i na 
+		odwrót. Utworzymy zatem dodatkową tablicę logiczną <i>QS</i>[ ] o
+		<span class="f">n</span>-elementach. Indeks będzie określał wierzchołek 
+		grafu, natomiast zawartość false będzie oznaczała, iż wierzchołek ten 
+		jest w <i>Q</i>, a zawartość true, iż jest w <i>S</i>.</p>
+		<p>Następny problem, to sprawdzanie, czy zbiór <i>Q</i> jest pusty w 
+		warunku kontynuacji pętli. Zwróć uwagę, iż przy każdym przebiegu tej 
+		pętli dokładnie jeden wierzchołek jest przenoszony z <i>Q</i> do <i>S
+		</i><span class="rem">(zmienia swój stan w QS[ ] z false na true)</span>. 
+		Zatem po <span class="f">n</span>-tym przebiegu wszystkie wierzchołki 
+		automatycznie znajdą się w zbiorze <i>S</i>. Nie musimy sprawdzać <i>Q</i> 
+		- wystarczy, iż pętlę tą zrealizujemy jako pętlę iteracyjną o
+		<span class="f">n</span> przebiegach.</p>
+		<p>Kolejnym problemem wpływającym na efektywność algorytmu jest 
+		wyszukiwanie w zbiorze <i>Q</i> wierzchołka o najmniejszej wartości 
+		kosztu dojścia <i>d</i>. Możemy tutaj zastosować proste wyszukiwanie 
+		liniowe - wtedy cały algorytm będzie miał czasową złożoność obliczeniową 
+		klasy <i>O</i><span class="f"><span style="font-style: normal">(</span></span><i>n<sup>2</sup></i><span style="font-style: normal"><span class="f">)</span></span>. 
+		Jednakże dużo lepszym pomysłem <span class="rem">(ale trudniejszym w 
+		realizacji)</span> jest zastosowanie <a href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0106.php">kolejki 
+		priorytetowej</a> opartej na strukturze kopca.</p>
+		<p>&nbsp;</p>
+	<h4>Program</h4>
+	<div class="sb1">
+		<table style="border-collapse: collapse" border="0" cellpadding="8">
+			<tbody><tr>
+				<td class="note"><b>Ważne</b>:<br>
+				<p class="bl1">Zanim uruchomisz program, przeczytaj 
+				<a target="_blank" href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0001.php#konsola">wstęp</a> do tego artykułu, w którym wyjaśniamy 
+      funkcje tych programów oraz sposób korzystania z nich. </p></td>
+			</tr>
+		</tbody></table>
+		<p>&nbsp;</p></div>
+	<div class="sb1">
+	<p>Poniższy program jest przykładową realizacją 
+	algorytmu Dijkstry z wyszukiwaniem liniowym. 
+	Definicja danych wejściowych jest następująca:</p>
+		<p>&nbsp;</p>
+		<div class="bl1">
+	<p>W pierwszym wierszu program odczytuje kolejno numer wierzchołka startowego v, 
+	liczbę wierzchołków <i>n</i> oraz liczbę krawędzi <i>m</i>. W <i>m</i> 
+	kolejnych wierszach znajdują się definicje krawędzi. Definicja składa się z 
+	trzech liczb <i>x y w</i>. Pierwsza i druga liczba określa wierzchołki grafu, które 
+	są ze sobą połączone tą krawędzią &#8211; krawędź biegnie od wierzchołka <i>x</i> do 
+	wierzchołka <i>y</i>. Trzecia liczba jest wagą krawędzi <i>w</i>.</p>
+	<p>Na wyjściu program wypisuje znalezione najkrótsze ścieżki od wierzchołka 
+	<i>v</i> do wszystkich pozostałych wierzchołków. Oprócz ścieżki wypisywany jest 
+	również koszt przejścia tej ścieżki.</p>
+			<p>&nbsp;</p>
+		</div>
+	<p>Przykładowe dane:</p>
+	<blockquote>
+      <table id="table32" style="border-collapse: collapse" border="0" cellpadding="4">
+        <tbody><tr>
+          <td>
+          		<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_03.gif" width="218" border="0" height="171"></td>
+          <td>0 6 9<br>
+			0 1 3<br>
+			0 4 3<br>
+			1 2 1<br>
+			2 3 3<br>
+			2 5 1<br>
+			3 1 3<br>
+			4 5 2<br>
+			5 0 6<br>
+			5 3 1</td>
+        </tr>
+      </tbody></table>
+    </blockquote>
+    &nbsp;<table id="table257" style="border-collapse: collapse" border="1" bordercolor="#808080" cellpadding="4" cellspacing="0">
+			<tbody><tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Lazarus</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">
+				<pre id="pas"><pre><span class="c">// Algorytm Dijkstry z wyszukiwaniem liniowym</span>
+<span class="c">// Data: 15.03.2014</span>
+<span class="c">// (C)2014 mgr Jerzy Wałaszek</span>
+<span class="c">//-------------------------------------------</span>
+
+<span class="i">program</span> <span class="v">dijkstra</span>;
+
+<span class="c">// Typy danych</span>
+
+<span class="i">type</span>
+  <span class="v">PslistEl</span> = ^<span class="v">slistEl</span>;
+  <span class="v">slistEl</span> =  <span class="i">record</span>
+    <span class="v">next</span>  : <span class="v">PslistEl</span>;
+    <span class="v">v</span>,<span class="v">w</span>   : <span class="v">integer</span>;              <span class="c">// numer węzła docelowego i waga krawędzi</span>
+  <span class="i">end</span>;
+
+<span class="c">// **********************</span>
+<span class="c">// *** PROGRAM GŁÓWNY ***</span>
+<span class="c">// **********************</span>
+
+<span class="i">var</span>
+  <span class="v">i</span>,<span class="v">j</span>,<span class="v">m</span>,<span class="v">n</span>,<span class="v">v</span>,<span class="v">u</span>,<span class="v">w</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">sptr</span> : <span class="v">integer</span>;
+  <span class="v">d</span>,<span class="v">p</span>,<span class="v">S</span> : <span class="i">array</span> <span class="i">of</span> <span class="v">integer</span>;
+  <span class="v">QS</span>    : <span class="i">array</span> <span class="i">of</span> <span class="v">boolean</span>;       <span class="c">// Zbiory Q i S</span>
+  <span class="v">graf</span>  : <span class="i">array</span> <span class="i">of</span> <span class="v">PslistEl</span>;      <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">pw</span>,<span class="v">rw</span> : <span class="v">PslistEl</span>;
+
+<span class="i">begin</span>
+  <span class="v">read</span>(<span class="v">v</span>,<span class="v">n</span>,<span class="v">m</span>);                    <span class="c">// Węzeł startowy, liczba wierzchołków i krawędzi</span>
+
+  <span class="c">// Tworzymy tablice dynamiczne</span>
+
+  <span class="v">SetLength</span>(<span class="v">d</span>,<span class="v">n</span>);                 <span class="c">// Tablica kosztów dojścia</span>
+  <span class="v">SetLength</span>(<span class="v">p</span>,<span class="v">n</span>);                 <span class="c">// Tablica poprzedników</span>
+  <span class="v">SetLength</span>(<span class="v">QS</span>,<span class="v">n</span>);                <span class="c">// Zbiory Q i S</span>
+  <span class="v">SetLength</span>(<span class="v">graf</span>,<span class="v">n</span>);              <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">SetLength</span>(<span class="v">S</span>,<span class="v">n</span>);                 <span class="c">// Stos</span>
+  <span class="v">sptr</span> := <span class="n">0</span>;                      <span class="c">// Wskaźnik stosu</span>
+
+  <span class="c">// Inicjujemy tablice dynamiczne</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">0</span> <span class="i">to</span> <span class="v">n</span> - <span class="n">1</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">d</span>[<span class="v">i</span>] := <span class="v">MAXINT</span>;
+    <span class="v">p</span>[<span class="v">i</span>] := -<span class="n">1</span>;
+    <span class="v">QS</span>[<span class="v">i</span>] := <span class="v">false</span>;
+    <span class="v">graf</span>[<span class="v">i</span>] := <span class="v">nil</span>;
+  <span class="i">end</span>;
+
+  <span class="c">// Odczytujemy dane wejściowe</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">1</span> <span class="i">to</span> <span class="v">m</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">read</span>(<span class="v">x</span>,<span class="v">y</span>,<span class="v">w</span>);                  <span class="c">// Odczytujemy krawędź z wagą</span>
+    <span class="v">new</span>(<span class="v">pw</span>);                      <span class="c">// Tworzymy element listy sąsiedztwa</span>
+    <span class="v">pw</span>^.<span class="v">v</span> := <span class="v">y</span>;                   <span class="c">// Wierzchołek docelowy krawędzi</span>
+    <span class="v">pw</span>^.<span class="v">w</span> := <span class="v">w</span>;                   <span class="c">// Waga krawędzi</span>
+    <span class="v">pw</span>^.<span class="v">next</span> := <span class="v">graf</span>[<span class="v">x</span>];
+    <span class="v">graf</span>[<span class="v">x</span>] := <span class="v">pw</span>;                <span class="c">// Element dołączamy do listy</span>
+  <span class="i">end</span>;
+
+  <span class="v">writeln</span>;
+
+  <span class="v">d</span>[<span class="v">v</span>] := <span class="n">0</span>;                      <span class="c">// Koszt dojścia v jest zerowy</span>
+
+  <span class="c">// Wyznaczamy ścieżki</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">1</span> <span class="i">to</span> <span class="v">n</span> <span class="i">do</span>
+  <span class="i">begin</span>
+
+    <span class="c">// Szukamy wierzchołka w Q o najmniejszym koszcie d</span>
+
+    <span class="v">j</span> := <span class="n">0</span>;
+    <span class="i">while</span> <span class="v">QS</span>[<span class="v">j</span>] <span class="i">do</span> <span class="v">inc</span>(<span class="v">j</span>);
+    <span class="v">u</span> := <span class="v">j</span>;
+    <span class="v">inc</span>(<span class="v">j</span>);
+    <span class="i">while</span> <span class="v">j</span> &lt; <span class="v">n</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="i">if</span> <span class="i">not</span> <span class="v">QS</span>[<span class="v">j</span>] <span class="i">and</span> (<span class="v">d</span>[<span class="v">j</span>] &lt; <span class="v">d</span>[<span class="v">u</span>]) <span class="i">then</span> <span class="v">u</span> := <span class="v">j</span>;
+      <span class="v">inc</span>(<span class="v">j</span>)
+    <span class="i">end</span>;
+
+    <span class="c">// Znaleziony wierzchołek przenosimy do S</span>
+
+    <span class="v">QS</span>[<span class="v">u</span>] := <span class="v">true</span>;
+
+    <span class="c">// Modyfikujemy odpowiednio wszystkich sąsiadów u, którzy są w Q</span>
+
+    <span class="v">pw</span> := <span class="v">graf</span>[<span class="v">u</span>];
+    <span class="i">while</span> <span class="v">pw</span> &lt;&gt; <span class="v">nil</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="i">if</span> <span class="i">not</span> <span class="v">QS</span>[<span class="v">pw</span>^.<span class="v">v</span>] <span class="i">and</span> (<span class="v">d</span>[<span class="v">pw</span>^.<span class="v">v</span>] &gt; <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>^.<span class="v">w</span>) <span class="i">then</span>
+      <span class="i">begin</span>
+        <span class="v">d</span>[<span class="v">pw</span>^.<span class="v">v</span>] := <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>^.<span class="v">w</span>;
+        <span class="v">p</span>[<span class="v">pw</span>^.<span class="v">v</span>] := <span class="v">u</span>;
+      <span class="i">end</span>;
+      <span class="v">pw</span> := <span class="v">pw</span>^.<span class="v">next</span>;
+    <span class="i">end</span>;
+  <span class="i">end</span>;
+
+  <span class="c">// Gotowe, wyświetlamy wyniki</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">0</span> <span class="i">to</span> <span class="v">n</span> - <span class="n">1</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">write</span>(<span class="v">i</span>,<span class="t">': '</span>);
+
+    <span class="c">// Ścieżkę przechodzimy od końca ku początkowi,</span>
+    <span class="c">// Zapisując na stosie kolejne wierzchołki</span>
+
+    <span class="v">j</span> := <span class="v">i</span>;
+    <span class="i">while</span> <span class="v">j</span> &gt; -<span class="n">1</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="v">S</span>[<span class="v">sptr</span>] := <span class="v">j</span>;
+      <span class="v">inc</span>(<span class="v">sptr</span>);
+      <span class="v">j</span> := <span class="v">p</span>[<span class="v">j</span>];
+    <span class="i">end</span>;
+
+    <span class="c">// Wyświetlamy ścieżkę, pobierając wierzchołki ze stosu</span>
+
+    <span class="i">while</span> <span class="v">sptr</span> &gt; <span class="n">0</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="v">dec</span>(<span class="v">sptr</span>);
+      <span class="v">write</span>(<span class="v">S</span>[<span class="v">sptr</span>],<span class="t">' '</span>);
+    <span class="i">end</span>;
+
+    <span class="c">// Na końcu ścieżki wypisujemy jej koszt</span>
+
+    <span class="v">writeln</span>(<span class="t">'$'</span>,<span class="v">d</span>[<span class="v">i</span>]);
+  <span class="i">end</span>;
+
+  <span class="c">// Usuwamy tablice dynamiczne</span>
+
+  <span class="v">SetLength</span>(<span class="v">d</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">p</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">QS</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">S</span>,<span class="n">0</span>);
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">0</span> <span class="i">to</span> <span class="v">n</span> - <span class="n">1</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">pw</span> := <span class="v">graf</span>[<span class="v">i</span>];
+    <span class="i">while</span> <span class="v">pw</span> &lt;&gt; <span class="v">nil</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="v">rw</span> := <span class="v">pw</span>;
+      <span class="v">pw</span> := <span class="v">pw</span>^.<span class="v">next</span>;
+      <span class="v">dispose</span>(<span class="v">rw</span>);
+    <span class="i">end</span>;
+  <span class="i">end</span>;
+
+  <span class="v">SetLength</span>(<span class="v">graf</span>,<span class="n">0</span>);
+<span class="i">end</span>. </pre></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Code::Blocks</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">
+				<pre id="cpp"><pre><span class="c">// Algorytm Dijkstry z wyszukiwaniem liniowym</span>
+<span class="c">// Data: 15.03.2014</span>
+<span class="c">// (C)2014 mgr Jerzy Wałaszek</span>
+<span class="c">//-------------------------------------------</span>
+
+<span class="pp">#include &lt;iostream&gt;</span>
+
+<span class="i">using</span> <span class="i">namespace</span> <span class="v">std</span>;
+
+<span class="c">// Typy danych</span>
+
+<span class="i">struct</span> <span class="v">slistEl</span>
+{
+  <span class="v">slistEl</span> * <span class="v">next</span>;
+  <span class="i">int</span> <span class="v">v</span>,<span class="v">w</span>;                        <span class="c">// numer węzła docelowego i waga krawędzi</span>
+};
+
+<span class="i">const</span> <span class="i">int</span> <span class="v">MAXINT</span> = <span class="n">2147483647</span>;
+
+<span class="c">// **********************</span>
+<span class="c">// *** PROGRAM GŁÓWNY ***</span>
+<span class="c">// **********************</span>
+
+<span class="i">int</span> <span class="v">main</span>()
+{
+  <span class="i">int</span> <span class="v">i</span>,<span class="v">j</span>,<span class="v">m</span>,<span class="v">n</span>,<span class="v">v</span>,<span class="v">u</span>,<span class="v">w</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">sptr</span>,*<span class="v">d</span>,*<span class="v">p</span>,*<span class="v">S</span>;
+  <span class="i">bool</span> *<span class="v">QS</span>;                       <span class="c">// Zbiory Q i S</span>
+  <span class="v">slistEl</span> **<span class="v">graf</span>;                 <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">slistEl</span> *<span class="v">pw</span>,*<span class="v">rw</span>;
+
+  <span class="v">cin</span> &gt;&gt; <span class="v">v</span> &gt;&gt; <span class="v">n</span> &gt;&gt; <span class="v">m</span>;             <span class="c">// Węzeł startowy, liczba wierzchołków i krawędzi</span>
+
+  <span class="c">// Tworzymy tablice dynamiczne</span>
+
+  <span class="v">d</span> = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];                <span class="c">// Tablica kosztów dojścia</span>
+  <span class="v">p</span> = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];                <span class="c">// Tablica poprzedników</span>
+  <span class="v">QS</span> = <span class="i">new</span> <span class="i">bool</span> [<span class="v">n</span>];              <span class="c">// Zbiory Q i S</span>
+  <span class="v">graf</span> = <span class="i">new</span> <span class="v">slistEl</span> * [<span class="v">n</span>];       <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">S</span> = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];                <span class="c">// Stos</span>
+  <span class="v">sptr</span> = <span class="n">0</span>;                       <span class="c">// Wskaźnik stosu</span>
+
+  <span class="c">// Inicjujemy tablice dynamiczne</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="v">d</span>[<span class="v">i</span>] = <span class="v">MAXINT</span>;
+    <span class="v">p</span>[<span class="v">i</span>] = -<span class="n">1</span>;
+    <span class="v">QS</span>[<span class="v">i</span>] = <span class="i">false</span>;
+    <span class="v">graf</span>[<span class="v">i</span>] = <span class="v">NULL</span>;
+  }
+
+  <span class="c">// Odczytujemy dane wejściowe</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">m</span>; <span class="v">i</span>++)
+  {
+    <span class="v">cin</span> &gt;&gt; <span class="v">x</span> &gt;&gt; <span class="v">y</span> &gt;&gt; <span class="v">w</span>;           <span class="c">// Odczytujemy krawędź z wagą</span>
+    <span class="v">pw</span> = <span class="i">new</span> <span class="v">slistEl</span>;             <span class="c">// Tworzymy element listy sąsiedztwa</span>
+    <span class="v">pw</span>-&gt;<span class="v">v</span> = <span class="v">y</span>;                    <span class="c">// Wierzchołek docelowy krawędzi</span>
+    <span class="v">pw</span>-&gt;<span class="v">w</span> = <span class="v">w</span>;                    <span class="c">// Waga krawędzi</span>
+    <span class="v">pw</span>-&gt;<span class="v">next</span> = <span class="v">graf</span>[<span class="v">x</span>];
+    <span class="v">graf</span>[<span class="v">x</span>] = <span class="v">pw</span>;                 <span class="c">// Element dołączamy do listy</span>
+  }
+
+  <span class="v">cout</span> &lt;&lt; <span class="v">endl</span>;
+
+  <span class="v">d</span>[<span class="v">v</span>] = <span class="n">0</span>;                       <span class="c">// Koszt dojścia v jest zerowy</span>
+
+  <span class="c">// Wyznaczamy ścieżki</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="c">// Szukamy wierzchołka w Q o najmniejszym koszcie d</span>
+
+    <span class="i">for</span>(<span class="v">j</span> = <span class="n">0</span>; <span class="v">QS</span>[<span class="v">j</span>]; <span class="v">j</span>++);
+    <span class="i">for</span>(<span class="v">u</span> = <span class="v">j</span>++; <span class="v">j</span> &lt; <span class="v">n</span>; <span class="v">j</span>++)
+      <span class="i">if</span>(!<span class="v">QS</span>[<span class="v">j</span>] &amp;&amp; (<span class="v">d</span>[<span class="v">j</span>] &lt; <span class="v">d</span>[<span class="v">u</span>])) <span class="v">u</span> = <span class="v">j</span>;
+
+    <span class="c">// Znaleziony wierzchołek przenosimy do S</span>
+
+    <span class="v">QS</span>[<span class="v">u</span>] = <span class="i">true</span>;
+
+    <span class="c">// Modyfikujemy odpowiednio wszystkich sąsiadów u, którzy są w Q</span>
+
+    <span class="i">for</span>(<span class="v">pw</span> = <span class="v">graf</span>[<span class="v">u</span>]; <span class="v">pw</span>; <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="v">next</span>)
+      <span class="i">if</span>(!<span class="v">QS</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] &amp;&amp; (<span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] &gt; <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>))
+      {
+        <span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>;
+        <span class="v">p</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">u</span>;
+      }
+  }
+
+  <span class="c">// Gotowe, wyświetlamy wyniki</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="v">cout</span> &lt;&lt; <span class="v">i</span> &lt;&lt; <span class="t">": "</span>;
+
+    <span class="c">// Ścieżkę przechodzimy od końca ku początkowi,</span>
+    <span class="c">// Zapisując na stosie kolejne wierzchołki</span>
+
+    <span class="i">for</span>(<span class="v">j</span> = <span class="v">i</span>; <span class="v">j</span> &gt; -<span class="n">1</span>; <span class="v">j</span> = <span class="v">p</span>[<span class="v">j</span>]) <span class="v">S</span>[<span class="v">sptr</span>++] = <span class="v">j</span>;
+
+    <span class="c">// Wyświetlamy ścieżkę, pobierając wierzchołki ze stosu</span>
+
+    <span class="i">while</span>(<span class="v">sptr</span>) <span class="v">cout</span> &lt;&lt; <span class="v">S</span>[--<span class="v">sptr</span>] &lt;&lt; <span class="t">" "</span>;
+
+    <span class="c">// Na końcu ścieżki wypisujemy jej koszt</span>
+
+    <span class="v">cout</span> &lt;&lt; <span class="t">"$"</span> &lt;&lt; <span class="v">d</span>[<span class="v">i</span>] &lt;&lt; <span class="v">endl</span>;
+  }
+
+  <span class="c">// Usuwamy tablice dynamiczne</span>
+
+  <span class="i">delete</span> [] <span class="v">d</span>;
+  <span class="i">delete</span> [] <span class="v">p</span>;
+  <span class="i">delete</span> [] <span class="v">QS</span>;
+  <span class="i">delete</span> [] <span class="v">S</span>;
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="v">pw</span> = <span class="v">graf</span>[<span class="v">i</span>];
+    <span class="i">while</span>(<span class="v">pw</span>)
+    {
+      <span class="v">rw</span> = <span class="v">pw</span>;
+      <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="v">next</span>;
+      <span class="i">delete</span> <span class="v">rw</span>;
+    }
+  }
+
+  <span class="i">delete</span> [] <span class="v">graf</span>;
+
+  <span class="i">return</span> <span class="n">0</span>;
+} </pre></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Free Basic</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">
+				<pre id="bas"><pre><span class="c">' Algorytm Dijkstry z wyszukiwaniem liniowym</span>
+<span class="c">' Data: 15.03.2014</span>
+<span class="c">' (C)2014 mgr Jerzy Wałaszek</span>
+<span class="c">'-------------------------------------------</span>
+
+<span class="c">' Typy danych</span>
+
+<span class="i">Type</span> <span class="v">slistEl</span>
+  <span class="i">Dim</span> <span class="i">As</span> <span class="v">slistEl</span> <span class="i">Ptr</span> <span class="i">Next</span>
+  <span class="i">Dim</span> <span class="i">As</span> <span class="i">Integer</span> <span class="v">v</span>,<span class="v">w</span>              <span class="c">' numer węzła docelowego i waga krawędzi</span>
+<span class="i">End</span> <span class="i">Type</span>
+
+<span class="i">Const</span> <span class="v">MAXINT</span> = <span class="n">2147483647</span>
+
+<span class="c">' **********************</span>
+<span class="c">' *** PROGRAM GŁÓWNY ***</span>
+<span class="c">' **********************</span>
+
+<span class="i">Dim</span> <span class="i">As</span> <span class="i">Integer</span> <span class="v">i</span>,<span class="v">j</span>,<span class="v">m</span>,<span class="v">n</span>,<span class="v">v</span>,<span class="v">u</span>,<span class="v">w</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">sptr</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="i">Integer</span> <span class="i">Ptr</span> <span class="v">d</span>,<span class="v">p</span>,<span class="v">S</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="i">Byte</span> <span class="i">Ptr</span> <span class="v">QS</span>               <span class="c">' Zbiory Q i S</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="v">slistEl</span> <span class="i">Ptr</span> <span class="i">Ptr</span> <span class="v">graf</span>      <span class="c">' Tablica list sąsiedztwa</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="v">slistEl</span> <span class="i">Ptr</span> <span class="v">pw</span>,<span class="v">rw</span>
+
+<span class="i">Open</span> <span class="i">Cons</span> <span class="i">For</span> <span class="i">Input</span> <span class="i">As</span> #<span class="n">1</span>
+
+<span class="i">Input</span> #<span class="n">1</span>,<span class="v">v</span>,<span class="v">n</span>,<span class="v">m</span>                   <span class="c">' Węzeł startowy, liczba wierzchołków i krawędzi</span>
+
+<span class="c">' Tworzymy tablice dynamiczne</span>
+
+<span class="v">d</span> = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]              <span class="c">' Tablica kosztów dojścia</span>
+<span class="v">p</span> = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]              <span class="c">' Tablica poprzedników</span>
+<span class="v">QS</span> = <span class="i">New</span> <span class="i">Byte</span> [<span class="v">n</span>]                <span class="c">' Zbiory Q i S</span>
+<span class="v">graf</span> = <span class="i">New</span> <span class="v">slistEl</span> <span class="i">Ptr</span> [<span class="v">n</span>]       <span class="c">' Tablica list sąsiedztwa</span>
+<span class="v">S</span> = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]              <span class="c">' Stos</span>
+<span class="v">sptr</span> = <span class="n">0</span>                         <span class="c">' Wskaźnik stosu</span>
+
+<span class="c">' Inicjujemy tablice dynamiczne</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+  <span class="v">d</span>[<span class="v">i</span>] = <span class="v">MAXINT</span>
+  <span class="v">p</span>[<span class="v">i</span>] = -<span class="n">1</span>
+  <span class="v">QS</span>[<span class="v">i</span>] = <span class="n">0</span>
+  <span class="v">graf</span>[<span class="v">i</span>] = <span class="n">0</span>
+<span class="i">Next</span>
+
+<span class="c">' Odczytujemy dane wejściowe</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">m</span> - <span class="n">1</span>
+  <span class="i">Input</span> #<span class="n">1</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">w</span>                  <span class="c">' Odczytujemy krawędź z wagą</span>
+  <span class="v">pw</span> = <span class="i">New</span> <span class="v">slistEl</span>                <span class="c">' Tworzymy element listy sąsiedztwa</span>
+  <span class="v">pw</span>-&gt;<span class="v">v</span> = <span class="v">y</span>                       <span class="c">' Wierzchołek docelowy krawędzi</span>
+  <span class="v">pw</span>-&gt;<span class="v">w</span> = <span class="v">w</span>                       <span class="c">' Waga krawędzi</span>
+  <span class="v">pw</span>-&gt;<span class="i">Next</span> = <span class="v">graf</span>[<span class="v">x</span>]
+  <span class="v">graf</span>[<span class="v">x</span>] = <span class="v">pw</span>                    <span class="c">' Element dołączamy do listy</span>
+<span class="i">Next</span>
+
+<span class="i">Close</span> #<span class="n">1</span>
+
+<span class="i">Print</span>
+
+<span class="v">d</span>[<span class="v">v</span>] = <span class="n">0</span>                          <span class="c">' Koszt dojścia v jest zerowy</span>
+
+<span class="c">' Wyznaczamy ścieżki</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+
+  <span class="c">' Szukamy wierzchołka w Q o najmniejszym koszcie d</span>
+
+  <span class="v">j</span> = <span class="n">0</span>
+  <span class="i">While</span> <span class="v">QS</span>[<span class="v">j</span>] = <span class="n">1</span>
+  	 <span class="v">j</span> += <span class="n">1</span>
+  <span class="i">Wend</span>
+  <span class="v">u</span> = <span class="v">j</span>
+  <span class="v">j</span> += <span class="n">1</span>
+  <span class="i">While</span> <span class="v">j</span> &lt; <span class="v">n</span>
+    <span class="i">If</span> (<span class="v">QS</span>[<span class="v">j</span>] = <span class="n">0</span>) <span class="i">Andalso</span> (<span class="v">d</span>[<span class="v">j</span>] &lt; <span class="v">d</span>[<span class="v">u</span>]) <span class="i">Then</span> <span class="v">u</span> = <span class="v">j</span>
+    <span class="v">j</span> += <span class="n">1</span>
+  <span class="i">Wend</span>
+  
+  <span class="c">' Znaleziony wierzchołek przenosimy do S</span>
+
+  <span class="v">QS</span>[<span class="v">u</span>] = <span class="n">1</span>
+
+  <span class="c">' Modyfikujemy odpowiednio wszystkich sąsiadów u, którzy są w Q</span>
+
+  <span class="v">pw</span> = <span class="v">graf</span>[<span class="v">u</span>]
+  <span class="i">While</span> <span class="v">pw</span>
+    <span class="i">If</span> (<span class="v">QS</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="n">0</span>) <span class="i">Andalso</span> (<span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] &gt; <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>) <span class="i">Then</span>
+      <span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>
+      <span class="v">p</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">u</span>
+    <span class="i">End</span> <span class="i">If</span>
+    <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="i">Next</span>
+  <span class="i">Wend</span>
+<span class="i">Next</span>
+
+<span class="c">' Gotowe, wyświetlamy wyniki</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+  <span class="i">Print</span> <span class="v">i</span>;<span class="t">":"</span>;
+
+  <span class="c">' Ścieżkę przechodzimy od końca ku początkowi,</span>
+  <span class="c">' Zapisując na stosie kolejne wierzchołki</span>
+
+  <span class="v">j</span> = <span class="v">i</span>
+  <span class="i">While</span> <span class="v">j</span> &gt; -<span class="n">1</span>
+  	 <span class="v">S</span>[<span class="v">sptr</span>] = <span class="v">j</span>
+  	 <span class="v">sptr</span> += <span class="n">1</span>
+  	 <span class="v">j</span> = <span class="v">p</span>[<span class="v">j</span>]
+  <span class="i">Wend</span>
+
+  <span class="c">' Wyświetlamy ścieżkę, pobierając wierzchołki ze stosu</span>
+
+  <span class="i">While</span> <span class="v">sptr</span> &gt; <span class="n">0</span>
+  	 <span class="v">sptr</span> -= <span class="n">1</span>
+  	 <span class="i">Print</span> <span class="v">S</span>[<span class="v">sptr</span>];
+  <span class="i">Wend</span>
+
+  <span class="c">' Na końcu ścieżki wypisujemy jej koszt</span>
+
+  <span class="i">Print</span> <span class="i">Using</span> <span class="t">" $&amp;"</span>;<span class="v">d</span>[<span class="v">i</span>]
+<span class="i">Next</span>
+
+<span class="c">' Usuwamy tablice dynamiczne</span>
+
+<span class="i">Delete</span> [] <span class="v">d</span>
+<span class="i">Delete</span> [] <span class="v">p</span>
+<span class="i">Delete</span> [] <span class="v">QS</span>
+<span class="i">Delete</span> [] <span class="v">S</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+  <span class="v">pw</span> = <span class="v">graf</span>[<span class="v">i</span>]
+  <span class="i">While</span> <span class="v">pw</span>
+    <span class="v">rw</span> = <span class="v">pw</span>
+    <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="i">Next</span>
+    <span class="i">Delete</span> <span class="v">rw</span>
+  <span class="i">Wend</span>
+<span class="i">Next</span>
+
+<span class="i">Delete</span> [] <span class="v">graf</span>
+
+<span class="i">End</span> </pre></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Wynik</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left" class="program">0 6 9<br>
+				0 1 3<br>
+				0 4 3<br>
+				1 2 1<br>
+				2 3 3<br>
+				2 5 1<br>
+				3 1 3<br>
+				4 5 2<br>
+				5 0 6<br>
+				5 3 1<br>
+				<br>
+				0: 0 $0<br>
+				1: 0 1 $3<br>
+				2: 0 1 2 $4<br>
+				3: 0 4 5 3 $6<br>
+				4: 0 4 $3<br>
+				5: 0 4 5 $5</td>
+			</tr>
+		</tbody></table></div>
+	<p>&nbsp;</p></div>
+<h4><a name="A2"></a>Algorytm Dijkstry z kolejką priorytetową w postaci kopca - 
+wersja poglądowa</h4>
+<div class="sb1">
+	<p>Aby efektywnie wykorzystać kopiec w algorytmie Dijkstry znajdowania 
+	najkrótszych ścieżek w grafie, w elementach kopca zapamiętujemy numery 
+	wierzchołków grafu. Poprzez te numery możemy się prosto odwoływać do tablicy 
+	<i>d</i> przechowującej aktualne koszty dojścia do danego wierzchołka w grafie. 
+	Również wierzchołki grafu powinny pamiętać swoją pozycję w kopcu. Dzięki 
+	temu szybko odnajdziemy wierzchołek, którego koszt <i>d</i><span class="f">
+	</span>został zmodyfikowany. 
+	Pozycję wierzchołka grafu w kopcu można przechowywać w dodatkowej tablicy
+	<i>hp</i> zawierającej <span class="f">n</span> elementów typu całkowitego.</p>
+	<p>Przed rozpoczęciem pracy należy kopiec utworzyć. Ponieważ wszystkie 
+	wierzchołki grafu otrzymują początkowo wartość <i>d</i> równą nieskończoności, 
+	można je kolejno wpisać do struktury kopca. Następnie wybrany element <i>v</i> 
+	w kopcu wymieniamy z elementem pierwszym. Dzięki tej operacji znajdzie się 
+	on w korzeniu kopca i zostanie wybrany jako element grafu o najmniejszej 
+	wartości kosztu <i>d</i>.</p></div>
+<h4>Używane struktury danych:</h4>
+<blockquote>
+	<table id="table3" style="border-collapse: collapse" border="0" cellpadding="2">
+		<tbody><tr>
+			<td valign="top" nowrap="nowrap"><i>n</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">liczba wierzchołków w grafie</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>graf</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;<span lang="en">&nbsp;</span></td>
+			<td valign="top">zadany w dowolnie wybrany sposób, algorytm tego nie 
+				precyzuje.</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>v</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">wybrany wierzchołek grafu, <i>v</i>
+					<img alt="symbol" src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/000_symbol_05.gif" width="8" border="0" height="8">
+					<i>V</i>, który jest początkiem wyznaczania najkrótszych ścieżek 
+				do wszystkich pozostałych wierzchołków </td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>d</i>[<i>i</i>]</td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">koszt dojścia od wierzchołka v do wierzchołka <i>i</i>-tego 
+				wzdłuż najkrótszej ścieżki. Koszt dojścia jest sumą wag 
+				krawędzi, przez które przechodzimy posuwając się wzdłuż 
+				wyznaczonej najkrótszej ścieżki.</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap">p[i]</td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">dla <i>i</i>-tego wierzchołka 
+				grafu <i>p</i>[<i>i</i>] 
+				zawiera numer wierzchołka poprzedzającego na najkrótszej ścieżce</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>w</i>[<i>i&#8211;j</i>]</td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">waga ścieżki pomiędzy wierzchołkami
+				<i>i</i> a <i>j</i> <span class="rem">(graf nieskierowany)</span> lub od wierzchołka
+				<i>i</i>-tego do <i>j</i>-tego <span class="rem">(graf skierowany)</span></td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>S</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">zbiór wierzchołków grafu o policzonych już 
+				najkrótszych ścieżkach od wybranego wierzchołka <i>v</i></td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>Q</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">zbiór wierzchołków grafu, dla których 
+				najkrótsze ścieżki nie zostały jeszcze policzone</td>
+		</tr>
+	</tbody></table>
+</blockquote>
+<h4>Dane wejściowe:</h4>
+<blockquote>
+	<p><i>n, graf, v</i></p>
+</blockquote>
+<h4>Dane wyjściowe:</h4>
+<blockquote>
+	<p>Dla każdego wierzchołka <i>i</i> algorytm wyznacza koszt dojścia <i>d</i>[<i>i</i>] 
+		oraz poprzednika <i>p</i>[<i>i</i>]
+		na najkrótszej ścieżce.</p>
+	<p>&nbsp;</p>
+	<table id="table283" style="border-collapse: collapse" border="0" cellpadding="4">
+		<tbody><tr>
+			<td valign="top" align="right">K01:</td>
+			<td><i>S</i> &#8592; &#216;;&nbsp;&nbsp;
+				<i>Q</i> &#8592; wszystkie wierzchołki grafu</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K02:</td>
+			<td><b>Dla</b> <i>i</i> = 0,1,...,n - 1 <b>wykonaj</b>: <i>p</i>[<i>i</i>] &#8592; 
+			-1;&nbsp; <i>d</i>[i] &#8592;<font face="Symbol"> &#165;</font></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right"><font color="#FF0000">K03:</font></td>
+			<td><font color="#FF0000">Ustaw kopiec</font></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K04:</td>
+			<td><i>d</i>[<i>v</i>] &#8592; 0</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right"><font color="#FF0000">K05:</font></td>
+			<td><font color="#FF0000">Odtwórz własność kopca po zmianie 
+				<i>d</i>[<i>v</i>]</font></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K06:</td>
+			<td><b>Dopóki</b> <i>Q</i> &#8800; &#216;<b> 
+				wykonuj kroki</b> K05...K07</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right"><font color="#FF0000">K07:</font></td>
+			<td>&nbsp;&nbsp;&nbsp;<font color="#FF0000"> <i>u</i> &#8592;
+				korzeń kopca</font></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right"><font color="#FF0000">K08:</font></td>
+			<td>&nbsp;&nbsp;&nbsp; <font color="#FF0000">Usuń korzeń z kopca i odtwórz własność 
+				kopca</font></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K09:</td>
+			<td>&nbsp;&nbsp;&nbsp; Wierzchołek <i>u</i> przenieś z <i>Q</i> do<i> S</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right"><font color="#FF0000">K10</font>:</td>
+			<td>&nbsp;&nbsp;&nbsp; <b>Dla</b> każdego <i>v</i>
+			<font face="Symbol">Î</font> <i>Q</i>, takiego że krawędź <i>u&#8211;v</i>
+					<img alt="symbol" src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/000_symbol_05.gif" width="8" border="0" height="8">
+					graf, <b>jeśli</b> <i>d</i>[<i>v</i>] 
+				&gt; <i>d</i>[<i>u</i>] 
+				+ <i>w</i>[<i>u&#8211;v</i>], 
+				<b>to</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>d</i>[<i>v</i>] &#8592;
+			<i>d</i>[<i>u</i>] 
+				+ <i>w</i>[<i>u&#8211;v</i>];&nbsp;&nbsp; <i>p</i>[<i>v</i>] &#8592; 
+			<i>u</i>;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			<font color="#FF0000">odtwórz własność kopca po zmianie
+				<i>d</i>[<i>v</i>].</font></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K11:</td>
+			<td><b>Zakończ</b></td>
+		</tr>
+	</tbody></table>
+</blockquote>
+<p>Przy implementacji algorytmu Dijkstry z kolejką priorytetową zastosujemy 
+	podobne ustalenia jak dla implementacji z wyszukiwaniem liniowym:</p>
+<ol>
+	<li>Zbiory <i>S</i> i <i>Q</i> będą 
+		odwzorowane w tablicy logicznej <i>QS</i> o <i>n</i> elementach. Element
+		<i>i</i>-ty odnosi się do wierzchołka grafu o numerze
+		<i>i</i>-tym:<br><i>QS</i>[<i>i</i>] 
+		= false &#8211; wierzchołek <i>i</i>-ty należy do 
+		zbioru <i>Q</i><br><i>QS</i>[<i>i</i>] 
+		= true&nbsp; &#8211; wierzchołek <i>i</i>-ty należy do zbioru
+		<i>S</i></li>
+	<li>Graf odwzorowujemy w <i>n</i>-elementową tablicę 
+		list sąsiedztwa.</li>
+	<li>Koszty dojścia <i>d</i> 
+		zrealizujemy w postaci <i>n</i>-elementowej tablicy 
+		liczb całkowitych. Element <i>d</i>[<i>i</i>] 
+		określa koszt dojścia do wierzchołka <i>i</i>-tego.</li>
+	<li>Poprzedniki <i>p</i> 
+		również będą zrealizowane w formie tablicy <i>n</i>-elementowej 
+		liczb całkowitych. Element <i>p</i>[<i>i</i>] 
+		zawiera numer wierzchołka poprzedzającego wierzchołek <i>i</i>-ty 
+		na najkrótszej ścieżce z <i>v</i> 
+		do <i>i</i>. Wierzchołki numerujemy poczynając od 0. 
+		Zatem zawartość p[<i>i</i>] = -1 
+		informuje nas od razu, iż wierzchołek <i>i</i>-ty nie 
+		posiada poprzednika, zatem nie istnieje ścieżka z <i>v</i> 
+		do <i>i</i>.</li>
+	<li>Pętla z kroku 6 będzie zrealizowana w formie zwykłej pętli 
+		iteracyjnej wykonywanej <i>n</i> razy. Powodem jest to, 
+		iż przy każdym obiegu tej pętli jeden wierzchołek grafu przechodzi 
+		zawsze ze zbioru <i>Q</i> do <i>S</i>, 
+		zatem zbiór <i>Q</i> stanie się pusty po przeniesieniu
+		<i>n</i> wierzchołków, czyli po wykonaniu
+		<i>n</i> obiegów.</li>
+	<li>Algorytm wykorzystuje kopiec do wyszukiwania wierzchołków o 
+		najmniejszym koszcie dojścia. Kopiec zrealizujemy w <i>n</i>-elementowej 
+		tablicy <i>h</i>. 
+		W kopcu będziemy przechowywali numery wierzchołków grafu. Ponieważ 
+		potrzebna nam będzie również informacja o położeniu danego wierzchołka w 
+		strukturze kopca <span class="rem">(np. przy modyfikacji kosztu w kroku 
+		10)</span>, zatem zastosujemy dodatkową <i>n</i>-elementową 
+		tablicę <i>hp</i>, 
+		w której element <i>hp</i>[<i>i</i>] 
+		będzie przechowywał położenie <i>i</i>-tego wierzchołka 
+		w kopcu. Oczywiście przy modyfikacji kopca również niezbędna będzie 
+		odpowiednia modyfikacja tablicy <i>hp</i>, 
+		aby zachować spójność danych. Dodatkowo musimy pamiętać aktualną długość 
+		kopca w zmiennej <i>h<sub>len</sub></i>.</li>
+</ol>
+<h4>Operacja z kroku 3: ustaw kopiec</h4>
+<div class="sb1">
+	<p>Zadaniem tej operacji jest odpowiednia inicjalizacja struktury kopca. 
+	Ponieważ na początku algorytmu Dijkstry dla wszystkich wierzchołków koszt 
+	dojścia <nobr><i>d</i>[<i>i</i>] </nobr>przyjmuje wartość nieskończoną 
+	<span class="rem">(w praktyce największą możliwą)</span>, to nie ma 
+	istotnego znaczenia, w którym miejscu kopca dany wierzchołek się znajdzie, 
+	gdyż własność kopca będzie zachowana. 
+	Zatem wierzchołki rozmieszczamy kolejno zgodnie z ich numeracją.</p>
+	<table id="table284" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+		<tbody><tr>
+			<td valign="top" align="right">K01:</td>
+			<td><i>h<sub>len</sub></i> &#8592; <i>n</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K02:</td>
+			<td><b>Dla</b> <i>i</i> = 
+				0,1,...,<i>n</i> - 1 <b>wykonuj</b>: <i>h</i>[<i>i</i>] &#8592; 
+			<i>i</i>;&nbsp;&nbsp; <i>hp</i>[<i>i</i>] &#8592; <i>i</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K03:</td>
+			<td><b>Koniec</b></td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p></div>
+<h4>Operacja z kroku 5:<span class="f"> </span>odtworzenie własności kopca 
+	po zmianie <i>d</i>[<i>v</i>]</h4>
+<div class="sb1">
+	<p>Koszt dojścia do elementu startowego <i>v</i> ustalamy zawsze na 0. Operacja ta może zaburzyć 
+	strukturę kopca, jeśli <i>v</i> 
+	nie jest umieszczony w korzeniu. Ponieważ wszystkie pozostałe wierzchołki na 
+	tym etapie posiadają koszty <i>d</i>[<i>i</i>] = nieskończoność, to wystarczy zamienić
+	<i>h</i>[<i>v</i>]
+	z <i>h</i>[0] 
+	oraz odpowiednio ustawić tablicę <i>hp</i>.</p>
+	<table id="table5" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+		<tbody><tr>
+			<td valign="top" align="right">K01:</td>
+			<td><i>h</i>[0] &#8596; h[<i>v</i>]</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K02:</td>
+			<td><i>hp</i>[v]
+				&#8592; 0;&nbsp;&nbsp;&nbsp; <i>hp</i>[0] &#8592; <i>v</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K03:</td>
+			<td><b>Koniec</b></td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p></div>
+<h4>Operacja z kroku 7:&nbsp; u &#8592;
+				korzeń kopca</h4>
+<div class="sb1">
+	<p>Korzeń kopca zawsze jest w <i>h</i>[0], 
+	zatem:</p>
+	<table id="table6" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+		<tbody><tr>
+			<td valign="top" align="right">K01:</td>
+			<td><i>u</i> &#8592; 
+				<i>h</i>[0]</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K02:</td>
+			<td><b>Koniec</b></td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p></div>
+<h4>Operacja z kroku 8: usuń korzeń z kopca i odtwórz własność kopca</h4>
+<div class="sb1">
+	<p>Po pobraniu z kopca najmniejszego elementu musimy usunąć korzeń. 
+	Posuwamy się w dół 
+	hierarchii kopca:</p>
+	<h5>Używane struktury danych:</h5>
+	<table id="table8" style="border-collapse: collapse" class="sb1" border="0" cellpadding="2">
+		<tbody><tr>
+			<td valign="top" nowrap="nowrap"><i>h<sub>len</sub></i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;&nbsp;</td>
+			<td valign="top">ilość elementów w kopcu</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>parent</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">indeks wierzchołka nadrzędnego</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>left</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">indeks lewego potomka</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>right</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">indeks prawego potomka</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>d<sub>min</sub></i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">mniejsza wartość kosztu dojścia do lewego lub 
+				prawego potomka</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>p<sub>min</sub></i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">indeks potomka zawierającego mniejszą wartość 
+				kosztu dojścia</td>
+		</tr>
+	</tbody></table>
+	<h5>Lista kroków</h5>
+	<table id="table7" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+		<tbody><tr>
+			<td valign="top" align="right">K01:</td>
+			<td><i>h</i>[0] &#8592; <i>h</i>[<i>h<sub>len</sub></i> - 1];&nbsp;
+				<i>h<sub>len</sub></i> &#8592; <i>h<sub>len</sub></i> 
+				- 1</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K02:</td>
+			<td><i>hp</i>[ 
+				<i>h</i>[0] ] &#8592; 0</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K03:</td>
+			<td><i>parent</i> &#8592; 0</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K04:</td>
+			<td>&nbsp;&nbsp;&nbsp; <i>left</i> &#8592; 2 x
+				<i>parent</i> + 1;&nbsp;
+				<i>right</i> &#8592; <i>left</i> 
+				+ 1</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K05:</td>
+			<td>&nbsp;&nbsp;&nbsp; <b>Jeśli</b> <i>left</i>
+			<font face="Times New Roman">&#8805;</font> <i>h<sub>len</sub></i>, 
+				<b>to zakończ</b></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K06:</td>
+			<td>&nbsp;&nbsp; &nbsp;<i>d<sub>min</sub></i> &#8592; <i>d</i>[ <i>h</i>[<i>left</i>] 
+				];&nbsp; <i>p<sub>min</sub></i> &#8592; <i>left</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K07:</td>
+			<td>&nbsp;&nbsp;&nbsp; <b>Jeśli</b> <i>right</i>
+			<font face="Times New Roman">&#8805;</font> <i>h<sub>len</sub></i>, <b>to idź do kroku</b> K09</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K08:</td>
+			<td>&nbsp;&nbsp;&nbsp; <b>Jeśli</b> <i>d<sub>min</sub></i> 
+				&gt; <i>d</i>[ <i>h</i>[<i>right</i>] 
+				], <b>to</b>&nbsp; <i>d<sub>min</sub></i> &#8592; <i>d</i>[ <i>h</i>[<i>right</i>] 
+				];&nbsp;&nbsp; <i>p<sub>min</sub></i>
+				&#8592; <i>right</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K09:</td>
+			<td>&nbsp;&nbsp;&nbsp; <b>Jeśli</b> <i>d</i>[ <i>h</i>[<i>parent</i>] 
+				] &#8804; <i>d<sub>min</sub></i>, <b>to zakończ</b></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K10:</td>
+			<td>&nbsp;&nbsp;&nbsp; <i>h</i>[<i>parent</i>] 
+				&#8596; <i>h</i>[<i>p<sub>min</sub></i>]</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K11:</td>
+			<td>&nbsp;&nbsp;&nbsp; <i>hp</i>[
+				<i>h</i>[<i>parent</i>] 
+				] &#8592; <i>parent</i>;&nbsp;&nbsp;
+				<i>hp</i>[ <i>h</i>[<i>p<sub>min</sub></i>] 
+				] &#8592; <i>p<sub>min</sub></i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K12:</td>
+			<td>&nbsp;&nbsp;&nbsp; <i>parent</i> &#8592; <i>p<sub>min</sub></i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K13:</td>
+			<td><b>Idź do kroku</b> K04</td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p></div>
+<h3>Operacja z kroku 10: odtwórz własność kopca po zmianie d(v)</h3>
+<div class="sb1">
+	<p>Algorytm zmodyfikował koszt dojścia do wierzchołka <i>v</i> 
+	połączonego krawędzią ze znalezionym wcześniej wierzchołkiem <span class="f">u</span> grafu. W takim przypadku własność kopca zostaje zaburzona w okolicy 
+	wierzchołka <i>v</i> w kopcu. Musimy ją przywrócić. Posuwamy 
+	się w górę hierarchii kopca:</p>
+	<h4>Używane struktury danych:</h4>
+	<table id="table9" style="border-collapse: collapse" class="sb1" border="0" cellpadding="0">
+		<tbody><tr>
+			<td valign="top" nowrap="nowrap"><i>parent</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;&nbsp;</td>
+			<td valign="top">indeks elementu nadrzędnego w hierarchii kopca</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap"><i>child</i></td>
+			<td valign="top" nowrap="nowrap">&nbsp;&#8211;</td>
+			<td valign="top">indeks elementu potomnego</td>
+		</tr>
+	</tbody></table>
+	<h4>Lista kroków</h4>
+	<table id="table10" style="border-collapse: collapse" class="sb1" border="0" cellpadding="4">
+		<tbody><tr>
+			<td valign="top" align="right">K01:</td>
+			<td><i>child</i>&nbsp; &#8592; <i>hp</i>[<i>v</i>]</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K02:</td>
+			<td>&nbsp;&nbsp;&nbsp; <b>Jeśli</b> <i>child</i> 
+				= 0, <b>to zakończ</b></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K03:</td>
+			<td>&nbsp; &nbsp; <i>parent</i> &#8592; [(<i>child</i> - 1) / 2]</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K04:</td>
+			<td>&nbsp;&nbsp;&nbsp; <b>Jeśli</b> <i>d</i>[ <i>h</i>[<i>parent</i>]] 
+				&#8804; <i>d</i>[ <i>h</i>[<i>child</i>]], 
+				<b>to zakończ</b></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K05:</td>
+			<td>&nbsp;&nbsp;&nbsp; <i>h</i>[<i>parent</i>] 
+				&#8596; <i>h</i>[<i>child</i>]</td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K06:</td>
+			<td>&nbsp;&nbsp;&nbsp; <i>hp</i>[
+				<i>h</i>[<i>parent</i>] 
+				] &#8592; <i>parent</i>;&nbsp;&nbsp;
+				<i>hp</i>[ <i>h</i>[<i>child</i>] 
+				] &#8592; <i>child</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K07:</td>
+			<td>&nbsp;&nbsp;&nbsp; <i>child</i> &#8592; <i>parent</i></td>
+		</tr>
+		<tr>
+			<td valign="top" align="right">K08:</td>
+			<td><b>Idź do kroku</b> K02</td>
+		</tr>
+	</tbody></table>
+	<div class="sb1">&nbsp;</div></div>
+<blockquote>
+	<p>Podstawowym zyskiem zastosowania kolejki priorytetowej w algorytmie 
+	Dijkstry jest zmniejszenie klasy złożoności obliczeniowej z 
+	<nobr><i>O</i><span style="font-style: normal">(</span><i>n</i><span style="font-style: normal"><sup>2</sup>)</span>
+	</nobr>na <nobr><i>O</i><span style="font-style: normal">(</span><i>n</i>
+	<span style="font-style: normal">log</span> <i>n</i><span style="font-style: normal">)</span>.</nobr> 
+	Jednakże z drugiej strony sam algorytm się komplikuje i rośnie 
+	zapotrzebowanie na pamięć. Dlatego dla małych grafów wciąż efektywnym 
+	rozwiązaniem może być wersja z wyszukiwaniem liniowym.</p>
+</blockquote>
+<blockquote>
+	<p>Często interesuje nas znalezienie najkrótszej ścieżki pomiędzy wybranymi 
+	wierzchołkami w grafie - reszta ścieżek jest nam niepotrzebna. W takim 
+	przypadku przedstawiony algorytm Dijkstry kończymy w kroku, w którym 
+	pobieramy wierzchołek u o najmniejszym koszcie ze 
+	zbioru <i>Q</i> i jest on wierzchołkiem końcowym szukanej 
+	ścieżki. Pozwala to efektywnie konstruować algorytmy znajdujące np. 
+	najlepsze trasy przechodzące poprzez zadane wierzchołki w grafie.</p>
+</blockquote>
+
+	<h4>Program</h4>
+	<div class="sb1">
+		<table style="border-collapse: collapse" border="0" cellpadding="8">
+			<tbody><tr>
+				<td class="note"><b>Ważne</b>:<br>
+				<p class="bl1">Zanim uruchomisz program, przeczytaj 
+				<a target="_blank" href="http://edu.i-lo.tarnow.pl/inf/alg/001_search/0001.php#konsola">wstęp</a> do tego artykułu, w którym wyjaśniamy 
+      funkcje tych programów oraz sposób korzystania z nich. </p></td>
+			</tr>
+		</tbody></table>
+		<p>&nbsp;</p></div>
+	<div class="sb1">
+	Poniższy program jest przykładową realizacją 
+	algorytmu Dijkstry z kolejką priorytetową opartą na kopcu binarnym. 
+	Definicja danych wejściowych jest następująca:<p>&nbsp;</p>
+		<div class="bl1">
+	W pierwszym wierszu program odczytuje kolejno numer wierzchołka startowego v, 
+	liczbę wierzchołków <i>n</i> oraz liczbę krawędzi <i>m</i>. W <i>m</i> 
+	kolejnych wierszach znajdują się definicje krawędzi. Definicja składa się z 
+	trzech liczb <i>x y w</i>. Pierwsza i druga liczba określa wierzchołki grafu, które 
+	są ze sobą połączone tą krawędzią &#8211; krawędź biegnie od wierzchołka <i>x</i> do 
+	wierzchołka <i>y</i>. Trzecia liczba jest wagą krawędzi <i>w</i>.<p>Na wyjściu program wypisuje znalezione najkrótsze ścieżki od wierzchołka 
+	<i>v</i> do wszystkich pozostałych wierzchołków. Oprócz ścieżki wypisywany jest 
+	również koszt przejścia tej ścieżki.</p>
+			<p>&nbsp;</p>
+		</div>
+	<p>Przykładowe dane:</p>
+	<blockquote>
+      <table id="table285" style="border-collapse: collapse" border="0" cellpadding="4">
+        <tbody><tr>
+          <td>
+          		<img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/0138_03.gif" width="218" border="0" height="171"></td>
+          <td>0 6 9<br>
+			0 1 3<br>
+			0 4 3<br>
+			1 2 1<br>
+			2 3 3<br>
+			2 5 1<br>
+			3 1 3<br>
+			4 5 2<br>
+			5 0 6<br>
+			5 3 1</td>
+        </tr>
+      </tbody></table>
+    </blockquote>
+    &nbsp;<table id="table286" style="border-collapse: collapse" border="1" bordercolor="#808080" cellpadding="4" cellspacing="0">
+			<tbody><tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Lazarus</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">
+				<pre id="pas"><pre><span class="c">// Algorytm Dijkstry z kolejką priorytetową</span>
+<span class="c">// Data: 16.03.2014</span>
+<span class="c">// (C)2014 mgr Jerzy Wałaszek</span>
+<span class="c">//-----------------------------------------</span>
+
+<span class="i">program</span> <span class="v">dijkstra</span>;
+
+<span class="c">// Typy danych</span>
+
+<span class="i">type</span>
+  <span class="v">PslistEl</span> = ^<span class="v">slistEl</span>;
+  <span class="v">slistEl</span> =  <span class="i">record</span>
+    <span class="v">next</span>  : <span class="v">PslistEl</span>;
+    <span class="v">v</span>,<span class="v">w</span>   : <span class="v">integer</span>;              <span class="c">// numer węzła docelowego i waga krawędzi</span>
+  <span class="i">end</span>;
+
+<span class="c">// **********************</span>
+<span class="c">// *** PROGRAM GŁÓWNY ***</span>
+<span class="c">// **********************</span>
+
+<span class="i">var</span>
+  <span class="v">i</span>,<span class="v">j</span>,<span class="v">m</span>,<span class="v">n</span>,<span class="v">v</span>,<span class="v">u</span>,<span class="v">w</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">sptr</span>,<span class="v">hlen</span>,<span class="v">parent</span>,<span class="v">left</span>,<span class="v">right</span>,<span class="v">dmin</span>,<span class="v">pmin</span>,<span class="v">child</span> : <span class="v">integer</span>;
+  <span class="v">d</span>,<span class="v">p</span>,<span class="v">S</span>,<span class="v">h</span>,<span class="v">hp</span> : <span class="i">array</span> <span class="i">of</span> <span class="v">integer</span>;
+  <span class="v">QS</span>    : <span class="i">array</span> <span class="i">of</span> <span class="v">boolean</span>;       <span class="c">// Zbiory Q i S</span>
+  <span class="v">graf</span>  : <span class="i">array</span> <span class="i">of</span> <span class="v">PslistEl</span>;      <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">pw</span>,<span class="v">rw</span> : <span class="v">PslistEl</span>;
+
+<span class="i">begin</span>
+  <span class="v">read</span>(<span class="v">v</span>,<span class="v">n</span>,<span class="v">m</span>);                    <span class="c">// Węzeł startowy, liczba wierzchołków i krawędzi</span>
+
+  <span class="c">// Tworzymy tablice dynamiczne</span>
+
+  <span class="v">SetLength</span>(<span class="v">d</span>,<span class="v">n</span>);                 <span class="c">// Tablica kosztów dojścia</span>
+  <span class="v">SetLength</span>(<span class="v">p</span>,<span class="v">n</span>);                 <span class="c">// Tablica poprzedników</span>
+  <span class="v">SetLength</span>(<span class="v">QS</span>,<span class="v">n</span>);                <span class="c">// Zbiory Q i S</span>
+  <span class="v">SetLength</span>(<span class="v">graf</span>,<span class="v">n</span>);              <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">SetLength</span>(<span class="v">S</span>,<span class="v">n</span>);                 <span class="c">// Stos</span>
+  <span class="v">SetLength</span>(<span class="v">h</span>,<span class="v">n</span>);                 <span class="c">// Kopiec</span>
+  <span class="v">SetLength</span>(<span class="v">hp</span>,<span class="v">n</span>);                <span class="c">// Pozycje w kopcu</span>
+  <span class="v">sptr</span> := <span class="n">0</span>;                      <span class="c">// Wskaźnik stosu</span>
+
+  <span class="c">// Inicjujemy tablice dynamiczne</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">0</span> <span class="i">to</span> <span class="v">n</span> - <span class="n">1</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">d</span>[<span class="v">i</span>]    := <span class="v">MAXINT</span>;
+    <span class="v">p</span>[<span class="v">i</span>]    := -<span class="n">1</span>;
+    <span class="v">QS</span>[<span class="v">i</span>]   := <span class="v">false</span>;
+    <span class="v">graf</span>[<span class="v">i</span>] := <span class="v">nil</span>;
+    <span class="v">h</span>[<span class="v">i</span>]    := <span class="v">i</span>;
+    <span class="v">hp</span>[<span class="v">i</span>]   := <span class="v">i</span>;
+  <span class="i">end</span>;
+
+  <span class="v">hlen</span> := <span class="v">n</span>;
+
+  <span class="c">// Odczytujemy dane wejściowe</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">1</span> <span class="i">to</span> <span class="v">m</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">read</span>(<span class="v">x</span>,<span class="v">y</span>,<span class="v">w</span>);                  <span class="c">// Odczytujemy krawędź z wagą</span>
+    <span class="v">new</span>(<span class="v">pw</span>);                      <span class="c">// Tworzymy element listy sąsiedztwa</span>
+    <span class="v">pw</span>^.<span class="v">v</span> := <span class="v">y</span>;                   <span class="c">// Wierzchołek docelowy krawędzi</span>
+    <span class="v">pw</span>^.<span class="v">w</span> := <span class="v">w</span>;                   <span class="c">// Waga krawędzi</span>
+    <span class="v">pw</span>^.<span class="v">next</span> := <span class="v">graf</span>[<span class="v">x</span>];
+    <span class="v">graf</span>[<span class="v">x</span>] := <span class="v">pw</span>;                <span class="c">// Element dołączamy do listy</span>
+  <span class="i">end</span>;
+
+  <span class="v">writeln</span>;
+
+  <span class="v">d</span>[<span class="v">v</span>] := <span class="n">0</span>;                      <span class="c">// Koszt dojścia v jest zerowy</span>
+  <span class="v">x</span> := <span class="v">h</span>[<span class="n">0</span>]; <span class="v">h</span>[<span class="n">0</span>] := <span class="v">h</span>[<span class="v">v</span>]; <span class="v">h</span>[<span class="v">v</span>] := <span class="v">x</span>; <span class="c">// odtwarzamy własność kopca</span>
+  <span class="v">hp</span>[<span class="v">v</span>] := <span class="n">0</span>; <span class="v">hp</span>[<span class="n">0</span>] := <span class="v">v</span>;
+
+  <span class="c">// Wyznaczamy ścieżki</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">1</span> <span class="i">to</span> <span class="v">n</span> <span class="i">do</span>
+  <span class="i">begin</span>
+
+    <span class="v">u</span> := <span class="v">h</span>[<span class="n">0</span>];                    <span class="c">// Korzeń kopca jest zawsze najmniejszy</span>
+
+    <span class="c">// Usuwamy korzeń z kopca, odtwarzając własność kopca</span>
+
+    <span class="v">h</span>[<span class="n">0</span>] := <span class="v">h</span>[<span class="v">hlen</span> - <span class="n">1</span>];          <span class="c">// W korzeniu umieszczamy ostatni element</span>
+    <span class="v">dec</span>(<span class="v">hlen</span>);                    <span class="c">// Kopiec jest krótszy o jeden element</span>
+    <span class="v">hp</span>[<span class="v">h</span>[<span class="n">0</span>]] := <span class="n">0</span>;                <span class="c">// Zapamiętujemy pozycję elementu w kopcu</span>
+    <span class="v">parent</span>   := <span class="n">0</span>;
+    <span class="i">while</span> <span class="v">true</span> <span class="i">do</span>                 <span class="c">// W pętli idziemy w dół kopca, przywracając go</span>
+    <span class="i">begin</span>
+      <span class="v">left</span>  := <span class="v">parent</span> + <span class="v">parent</span> + <span class="n">1</span>; <span class="c">// Pozycja lewego potomka</span>
+      <span class="v">right</span> := <span class="v">left</span> + <span class="n">1</span>;          <span class="c">// Pozycja prawego potomka</span>
+      <span class="i">if</span> <span class="v">left</span> &gt;= <span class="v">hlen</span> <span class="i">then</span> <span class="v">break</span>; <span class="c">// Kończymy, jeśli lewy potomek poza kopcem</span>
+      <span class="v">dmin</span> := <span class="v">d</span>[<span class="v">h</span>[<span class="v">left</span>]];         <span class="c">// Wyznaczamy mniejszego potomka</span>
+      <span class="v">pmin</span> := <span class="v">left</span>;
+      <span class="i">if</span> (<span class="v">right</span> &lt; <span class="v">hlen</span>) <span class="i">and</span> (<span class="v">dmin</span> &gt; <span class="v">d</span>[<span class="v">h</span>[<span class="v">right</span>]]) <span class="i">then</span>
+      <span class="i">begin</span>
+        <span class="v">dmin</span> := <span class="v">d</span>[<span class="v">h</span>[<span class="v">right</span>]];
+        <span class="v">pmin</span> := <span class="v">right</span>;
+      <span class="i">end</span>;
+      <span class="i">if</span> <span class="v">d</span>[<span class="v">h</span>[<span class="v">parent</span>]] &lt;= <span class="v">dmin</span> <span class="i">then</span> <span class="v">break</span>; <span class="c">// Jeśli własność kopca zachowana, kończymy</span>
+      <span class="v">x</span> := <span class="v">h</span>[<span class="v">parent</span>]; <span class="v">h</span>[<span class="v">parent</span>] := <span class="v">h</span>[<span class="v">pmin</span>]; <span class="v">h</span>[<span class="v">pmin</span>] := <span class="v">x</span>; <span class="c">// Przywracamy własność kopca</span>
+      <span class="v">hp</span>[<span class="v">h</span>[<span class="v">parent</span>]] := <span class="v">parent</span>; <span class="v">hp</span>[<span class="v">h</span>[<span class="v">pmin</span>]] := <span class="v">pmin</span>;       <span class="c">// na danym poziomie</span>
+      <span class="v">parent</span> := <span class="v">pmin</span>;             <span class="c">// i przechodzimy na poziom niższy kopca</span>
+    <span class="i">end</span>;
+
+    <span class="c">// Znaleziony wierzchołek przenosimy do S</span>
+
+    <span class="v">QS</span>[<span class="v">u</span>] := <span class="v">true</span>;
+
+    <span class="c">// Modyfikujemy wszystkich sąsiadów u, którzy są w Q</span>
+
+    <span class="v">pw</span> := <span class="v">graf</span>[<span class="v">u</span>];
+    <span class="i">while</span> <span class="v">pw</span> &lt;&gt; <span class="v">nil</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="i">if</span> <span class="i">not</span> <span class="v">QS</span>[<span class="v">pw</span>^.<span class="v">v</span>] <span class="i">and</span> (<span class="v">d</span>[<span class="v">pw</span>^.<span class="v">v</span>] &gt; <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>^.<span class="v">w</span>) <span class="i">then</span>
+      <span class="i">begin</span>
+        <span class="v">d</span>[<span class="v">pw</span>^.<span class="v">v</span>] := <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>^.<span class="v">w</span>;
+        <span class="v">p</span>[<span class="v">pw</span>^.<span class="v">v</span>] := <span class="v">u</span>;
+
+        <span class="c">// Po zmianie d[v] odtwarzamy własność kopca, idąc w górę</span>
+
+        <span class="v">child</span> := <span class="v">hp</span>[<span class="v">pw</span>^.<span class="v">v</span>];
+        <span class="i">while</span> <span class="v">child</span> &gt; <span class="n">0</span> <span class="i">do</span>
+        <span class="i">begin</span>
+          <span class="v">parent</span> := <span class="v">child</span> <span class="i">div</span> <span class="n">2</span>;
+          <span class="i">if</span> <span class="v">d</span>[<span class="v">h</span>[<span class="v">parent</span>]] &lt;= <span class="v">d</span>[<span class="v">h</span>[<span class="v">child</span>]] <span class="i">then</span> <span class="v">break</span>;
+          <span class="v">x</span> := <span class="v">h</span>[<span class="v">parent</span>]; <span class="v">h</span>[<span class="v">parent</span>] := <span class="v">h</span>[<span class="v">child</span>]; <span class="v">h</span>[<span class="v">child</span>] := <span class="v">x</span>;
+          <span class="v">hp</span>[<span class="v">h</span>[<span class="v">parent</span>]] := <span class="v">parent</span>; <span class="v">hp</span>[<span class="v">h</span>[<span class="v">child</span>]] := <span class="v">child</span>;
+          <span class="v">child</span> := <span class="v">parent</span>;
+        <span class="i">end</span>;
+      <span class="i">end</span>;
+      <span class="v">pw</span> := <span class="v">pw</span>^.<span class="v">next</span>;
+    <span class="i">end</span>;
+  <span class="i">end</span>;
+
+  <span class="c">// Gotowe, wyświetlamy wyniki</span>
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">0</span> <span class="i">to</span> <span class="v">n</span> - <span class="n">1</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">write</span>(<span class="v">i</span>,<span class="t">': '</span>);
+
+    <span class="c">// Ścieżkę przechodzimy od końca ku początkowi,</span>
+    <span class="c">// Zapisując na stosie kolejne wierzchołki</span>
+
+    <span class="v">j</span> := <span class="v">i</span>;
+    <span class="i">while</span> <span class="v">j</span> &gt; -<span class="n">1</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="v">S</span>[<span class="v">sptr</span>] := <span class="v">j</span>;
+      <span class="v">inc</span>(<span class="v">sptr</span>);
+      <span class="v">j</span> := <span class="v">p</span>[<span class="v">j</span>];
+    <span class="i">end</span>;
+
+    <span class="c">// Wyświetlamy ścieżkę, pobierając wierzchołki ze stosu</span>
+
+    <span class="i">while</span> <span class="v">sptr</span> &gt; <span class="n">0</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="v">dec</span>(<span class="v">sptr</span>);
+      <span class="v">write</span>(<span class="v">S</span>[<span class="v">sptr</span>],<span class="t">' '</span>);
+    <span class="i">end</span>;
+
+    <span class="c">// Na końcu ścieżki wypisujemy jej koszt</span>
+
+    <span class="v">writeln</span>(<span class="t">'$'</span>,<span class="v">d</span>[<span class="v">i</span>]);
+  <span class="i">end</span>;
+
+  <span class="c">// Usuwamy tablice dynamiczne</span>
+
+  <span class="v">SetLength</span>(<span class="v">d</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">p</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">QS</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">S</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">h</span>,<span class="n">0</span>);
+  <span class="v">SetLength</span>(<span class="v">hp</span>,<span class="n">0</span>);
+
+  <span class="i">for</span> <span class="v">i</span> := <span class="n">0</span> <span class="i">to</span> <span class="v">n</span> - <span class="n">1</span> <span class="i">do</span>
+  <span class="i">begin</span>
+    <span class="v">pw</span> := <span class="v">graf</span>[<span class="v">i</span>];
+    <span class="i">while</span> <span class="v">pw</span> &lt;&gt; <span class="v">nil</span> <span class="i">do</span>
+    <span class="i">begin</span>
+      <span class="v">rw</span> := <span class="v">pw</span>;
+      <span class="v">pw</span> := <span class="v">pw</span>^.<span class="v">next</span>;
+      <span class="v">dispose</span>(<span class="v">rw</span>);
+    <span class="i">end</span>;
+  <span class="i">end</span>;
+
+  <span class="v">SetLength</span>(<span class="v">graf</span>,<span class="n">0</span>);
+
+<span class="i">end</span>. </pre></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Code::Blocks</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">
+				<pre id="cpp"><pre><span class="c">// Algorytm Dijkstry z kolejką priorytetową</span>
+<span class="c">// Data: 16.03.2014</span>
+<span class="c">// (C)2014 mgr Jerzy Wałaszek</span>
+<span class="c">//-----------------------------------------</span>
+
+<span class="pp">#include &lt;iostream&gt;</span>
+
+<span class="i">using</span> <span class="i">namespace</span> <span class="v">std</span>;
+
+<span class="c">// Typy danych</span>
+
+<span class="i">struct</span> <span class="v">slistEl</span>
+{
+  <span class="v">slistEl</span> * <span class="v">next</span>;
+  <span class="i">int</span> <span class="v">v</span>,<span class="v">w</span>;                        <span class="c">// numer węzła docelowego i waga krawędzi</span>
+};
+
+<span class="i">const</span> <span class="i">int</span> <span class="v">MAXINT</span> = <span class="n">2147483647</span>;
+
+<span class="c">// **********************</span>
+<span class="c">// *** PROGRAM GŁÓWNY ***</span>
+<span class="c">// **********************</span>
+
+<span class="i">int</span> <span class="v">main</span>()
+{
+  <span class="i">int</span> <span class="v">i</span>,<span class="v">j</span>,<span class="v">m</span>,<span class="v">n</span>,<span class="v">v</span>,<span class="v">u</span>,<span class="v">w</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">sptr</span>,<span class="v">hlen</span>,<span class="v">parent</span>,<span class="v">left</span>,<span class="v">right</span>,<span class="v">dmin</span>,<span class="v">pmin</span>,<span class="v">child</span>,*<span class="v">d</span>,*<span class="v">p</span>,*<span class="v">S</span>,*<span class="v">h</span>,*<span class="v">hp</span>;
+  <span class="i">bool</span> *<span class="v">QS</span>;                       <span class="c">// Zbiory Q i S</span>
+  <span class="v">slistEl</span> **<span class="v">graf</span>;                 <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">slistEl</span> *<span class="v">pw</span>,*<span class="v">rw</span>;
+
+  <span class="v">cin</span> &gt;&gt; <span class="v">v</span> &gt;&gt; <span class="v">n</span> &gt;&gt; <span class="v">m</span>;             <span class="c">// Węzeł startowy, liczba wierzchołków i krawędzi</span>
+
+  <span class="c">// Tworzymy tablice dynamiczne</span>
+
+  <span class="v">d</span>    = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];             <span class="c">// Tablica kosztów dojścia</span>
+  <span class="v">p</span>    = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];             <span class="c">// Tablica poprzedników</span>
+  <span class="v">QS</span>   = <span class="i">new</span> <span class="i">bool</span> [<span class="v">n</span>];            <span class="c">// Zbiory Q i S</span>
+  <span class="v">graf</span> = <span class="i">new</span> <span class="v">slistEl</span> * [<span class="v">n</span>];       <span class="c">// Tablica list sąsiedztwa</span>
+  <span class="v">S</span>    = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];             <span class="c">// Stos</span>
+  <span class="v">h</span>    = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];             <span class="c">// Kopiec</span>
+  <span class="v">hp</span>   = <span class="i">new</span> <span class="i">int</span> [<span class="v">n</span>];             <span class="c">// Pozycje w kopcu</span>
+  <span class="v">sptr</span> = <span class="n">0</span>;                       <span class="c">// Wskaźnik stosu</span>
+
+  <span class="c">// Inicjujemy tablice dynamiczne</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="v">d</span>[<span class="v">i</span>] = <span class="v">MAXINT</span>;
+    <span class="v">p</span>[<span class="v">i</span>] = -<span class="n">1</span>;
+    <span class="v">QS</span>[<span class="v">i</span>] = <span class="i">false</span>;
+    <span class="v">graf</span>[<span class="v">i</span>] = <span class="v">NULL</span>;
+    <span class="v">h</span>[<span class="v">i</span>] = <span class="v">hp</span>[<span class="v">i</span>] = <span class="v">i</span>;
+  }
+
+  <span class="v">hlen</span> = <span class="v">n</span>;
+
+  <span class="c">// Odczytujemy dane wejściowe</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">m</span>; <span class="v">i</span>++)
+  {
+    <span class="v">cin</span> &gt;&gt; <span class="v">x</span> &gt;&gt; <span class="v">y</span> &gt;&gt; <span class="v">w</span>;           <span class="c">// Odczytujemy krawędź z wagą</span>
+    <span class="v">pw</span> = <span class="i">new</span> <span class="v">slistEl</span>;             <span class="c">// Tworzymy element listy sąsiedztwa</span>
+    <span class="v">pw</span>-&gt;<span class="v">v</span> = <span class="v">y</span>;                    <span class="c">// Wierzchołek docelowy krawędzi</span>
+    <span class="v">pw</span>-&gt;<span class="v">w</span> = <span class="v">w</span>;                    <span class="c">// Waga krawędzi</span>
+    <span class="v">pw</span>-&gt;<span class="v">next</span> = <span class="v">graf</span>[<span class="v">x</span>];
+    <span class="v">graf</span>[<span class="v">x</span>] = <span class="v">pw</span>;                 <span class="c">// Element dołączamy do listy</span>
+  }
+
+  <span class="v">cout</span> &lt;&lt; <span class="v">endl</span>;
+
+  <span class="v">d</span>[<span class="v">v</span>] = <span class="n">0</span>;                       <span class="c">// Koszt dojścia v jest zerowy</span>
+  <span class="v">x</span> = <span class="v">h</span>[<span class="n">0</span>]; <span class="v">h</span>[<span class="n">0</span>] = <span class="v">h</span>[<span class="v">v</span>]; <span class="v">h</span>[<span class="v">v</span>] = <span class="v">x</span>; <span class="c">// odtwarzamy własność kopca</span>
+  <span class="v">hp</span>[<span class="v">v</span>] = <span class="n">0</span>; <span class="v">hp</span>[<span class="n">0</span>] = <span class="v">v</span>;
+
+  <span class="c">// Wyznaczamy ścieżki</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="v">u</span> = <span class="v">h</span>[<span class="n">0</span>];                     <span class="c">// Korzeń kopca jest zawsze najmniejszy</span>
+
+    <span class="c">// Usuwamy korzeń z kopca, odtwarzając własność kopca</span>
+
+    <span class="v">h</span>[<span class="n">0</span>] = <span class="v">h</span>[--<span class="v">hlen</span>];             <span class="c">// W korzeniu umieszczamy ostatni element</span>
+    <span class="v">hp</span>[<span class="v">h</span>[<span class="n">0</span>]] = <span class="v">parent</span> = <span class="n">0</span>;        <span class="c">// Zapamiętujemy pozycję elementu w kopcu</span>
+    <span class="i">while</span>(<span class="i">true</span>)                   <span class="c">// W pętli idziemy w dół kopca, przywracając go</span>
+    {
+      <span class="v">left</span>  = <span class="v">parent</span> + <span class="v">parent</span> + <span class="n">1</span>; <span class="c">// Pozycja lewego potomka</span>
+      <span class="v">right</span> = <span class="v">left</span> + <span class="n">1</span>;           <span class="c">// Pozycja prawego potomka</span>
+      <span class="i">if</span>(<span class="v">left</span> &gt;= <span class="v">hlen</span>) <span class="i">break</span>;     <span class="c">// Kończymy, jeśli lewy potomek poza kopcem</span>
+      <span class="v">dmin</span> = <span class="v">d</span>[<span class="v">h</span>[<span class="v">left</span>]];          <span class="c">// Wyznaczamy mniejszego potomka</span>
+      <span class="v">pmin</span> = <span class="v">left</span>;
+      <span class="i">if</span>((<span class="v">right</span> &lt; <span class="v">hlen</span>) &amp;&amp; (<span class="v">dmin</span> &gt; <span class="v">d</span>[<span class="v">h</span>[<span class="v">right</span>]]))
+      {
+        <span class="v">dmin</span> = <span class="v">d</span>[<span class="v">h</span>[<span class="v">right</span>]];
+        <span class="v">pmin</span> = <span class="v">right</span>;
+      }
+      <span class="i">if</span>(<span class="v">d</span>[<span class="v">h</span>[<span class="v">parent</span>]] &lt;= <span class="v">dmin</span>) <span class="i">break</span>; <span class="c">// Jeśli własność kopca zachowana, kończymy</span>
+      <span class="v">x</span> = <span class="v">h</span>[<span class="v">parent</span>]; <span class="v">h</span>[<span class="v">parent</span>] = <span class="v">h</span>[<span class="v">pmin</span>]; <span class="v">h</span>[<span class="v">pmin</span>] = <span class="v">x</span>; <span class="c">// Przywracamy własność kopca</span>
+      <span class="v">hp</span>[<span class="v">h</span>[<span class="v">parent</span>]] = <span class="v">parent</span>; <span class="v">hp</span>[<span class="v">h</span>[<span class="v">pmin</span>]] = <span class="v">pmin</span>;      <span class="c">// na danym poziomie</span>
+      <span class="v">parent</span> = <span class="v">pmin</span>;              <span class="c">// i przechodzimy na poziom niższy kopca</span>
+    }
+
+    <span class="c">// Znaleziony wierzchołek przenosimy do S</span>
+
+    <span class="v">QS</span>[<span class="v">u</span>] = <span class="i">true</span>;
+
+    <span class="c">// Modyfikujemy odpowiednio wszystkich sąsiadów u, którzy są w Q</span>
+
+    <span class="i">for</span>(<span class="v">pw</span> = <span class="v">graf</span>[<span class="v">u</span>]; <span class="v">pw</span>; <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="v">next</span>)
+      <span class="i">if</span>(!<span class="v">QS</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] &amp;&amp; (<span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] &gt; <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>))
+      {
+        <span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>;
+        <span class="v">p</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">u</span>;
+
+        <span class="c">// Po zmianie d[v] odtwarzamy własność kopca, idąc w górę</span>
+
+        <span class="i">for</span>(<span class="v">child</span> = <span class="v">hp</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>]; <span class="v">child</span>; <span class="v">child</span> = <span class="v">parent</span>)
+        {
+          <span class="v">parent</span> = <span class="v">child</span> / <span class="n">2</span>;
+          <span class="i">if</span>(<span class="v">d</span>[<span class="v">h</span>[<span class="v">parent</span>]] &lt;= <span class="v">d</span>[<span class="v">h</span>[<span class="v">child</span>]]) <span class="i">break</span>;
+          <span class="v">x</span> = <span class="v">h</span>[<span class="v">parent</span>]; <span class="v">h</span>[<span class="v">parent</span>] = <span class="v">h</span>[<span class="v">child</span>]; <span class="v">h</span>[<span class="v">child</span>] = <span class="v">x</span>;
+          <span class="v">hp</span>[<span class="v">h</span>[<span class="v">parent</span>]] = <span class="v">parent</span>; <span class="v">hp</span>[<span class="v">h</span>[<span class="v">child</span>]] = <span class="v">child</span>;
+        }
+      }
+  }
+
+  <span class="c">// Gotowe, wyświetlamy wyniki</span>
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="v">cout</span> &lt;&lt; <span class="v">i</span> &lt;&lt; <span class="t">": "</span>;
+
+    <span class="c">// Ścieżkę przechodzimy od końca ku początkowi,</span>
+    <span class="c">// Zapisując na stosie kolejne wierzchołki</span>
+
+    <span class="i">for</span>(<span class="v">j</span> = <span class="v">i</span>; <span class="v">j</span> &gt; -<span class="n">1</span>; <span class="v">j</span> = <span class="v">p</span>[<span class="v">j</span>]) <span class="v">S</span>[<span class="v">sptr</span>++] = <span class="v">j</span>;
+
+    <span class="c">// Wyświetlamy ścieżkę, pobierając wierzchołki ze stosu</span>
+
+    <span class="i">while</span>(<span class="v">sptr</span>) <span class="v">cout</span> &lt;&lt; <span class="v">S</span>[--<span class="v">sptr</span>] &lt;&lt; <span class="t">" "</span>;
+
+    <span class="c">// Na końcu ścieżki wypisujemy jej koszt</span>
+
+    <span class="v">cout</span> &lt;&lt; <span class="t">"$"</span> &lt;&lt; <span class="v">d</span>[<span class="v">i</span>] &lt;&lt; <span class="v">endl</span>;
+  }
+
+  <span class="c">// Usuwamy tablice dynamiczne</span>
+
+  <span class="i">delete</span> [] <span class="v">d</span>;
+  <span class="i">delete</span> [] <span class="v">p</span>;
+  <span class="i">delete</span> [] <span class="v">QS</span>;
+  <span class="i">delete</span> [] <span class="v">S</span>;
+  <span class="i">delete</span> [] <span class="v">h</span>;
+  <span class="i">delete</span> [] <span class="v">hp</span>;
+
+  <span class="i">for</span>(<span class="v">i</span> = <span class="n">0</span>; <span class="v">i</span> &lt; <span class="v">n</span>; <span class="v">i</span>++)
+  {
+    <span class="v">pw</span> = <span class="v">graf</span>[<span class="v">i</span>];
+    <span class="i">while</span>(<span class="v">pw</span>)
+    {
+      <span class="v">rw</span> = <span class="v">pw</span>;
+      <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="v">next</span>;
+      <span class="i">delete</span> <span class="v">rw</span>;
+    }
+  }
+
+  <span class="i">delete</span> [] <span class="v">graf</span>;
+
+  <span class="i">return</span> <span class="n">0</span>;
+} </pre></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Free Basic</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left">
+				<pre id="bas"><pre><span class="c">' Algorytm Dijkstry z kolejką priorytetową</span>
+<span class="c">' Data: 16.03.2014</span>
+<span class="c">' (C)2014 mgr Jerzy Wałaszek</span>
+<span class="c">'-----------------------------------------</span>
+
+<span class="c">' Typy danych</span>
+
+<span class="i">Type</span> <span class="v">slistEl</span>
+  <span class="i">Dim</span> <span class="i">As</span> <span class="v">slistEl</span> <span class="i">Ptr</span> <span class="i">Next</span>
+  <span class="i">Dim</span> <span class="i">As</span> <span class="i">Integer</span> <span class="v">v</span>,<span class="v">w</span>              <span class="c">' numer węzła docelowego i waga krawędzi</span>
+<span class="i">End</span> <span class="i">Type</span>
+
+<span class="i">Const</span> <span class="v">MAXINT</span> = <span class="n">2147483647</span>
+
+<span class="c">' **********************</span>
+<span class="c">' *** PROGRAM GŁÓWNY ***</span>
+<span class="c">' **********************</span>
+
+<span class="i">Dim</span> <span class="i">As</span> <span class="i">Integer</span> <span class="v">i</span>,<span class="v">j</span>,<span class="v">m</span>,<span class="v">n</span>,<span class="v">v</span>,<span class="v">u</span>,<span class="v">w</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">sptr</span>,<span class="v">hlen</span>,<span class="v">parent</span>,<span class="v">leftc</span>,<span class="v">rightc</span>,<span class="v">dmin</span>,<span class="v">pmin</span>,<span class="v">child</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="i">Integer</span> <span class="i">Ptr</span> <span class="v">d</span>,<span class="v">p</span>,<span class="v">S</span>,<span class="v">h</span>,<span class="v">hp</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="i">Byte</span> <span class="i">Ptr</span> <span class="v">QS</span>               <span class="c">' Zbiory Q i S</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="v">slistEl</span> <span class="i">Ptr</span> <span class="i">Ptr</span> <span class="v">graf</span>      <span class="c">' Tablica list sąsiedztwa</span>
+<span class="i">Dim</span> <span class="i">As</span> <span class="v">slistEl</span> <span class="i">Ptr</span> <span class="v">pw</span>,<span class="v">rw</span>
+
+<span class="i">Open</span> <span class="i">Cons</span> <span class="i">For</span> <span class="i">Input</span> <span class="i">As</span> #<span class="n">1</span>
+
+<span class="i">Input</span> #<span class="n">1</span>,<span class="v">v</span>,<span class="v">n</span>,<span class="v">m</span>                   <span class="c">' Węzeł startowy, liczba wierzchołków i krawędzi</span>
+
+<span class="c">' Tworzymy tablice dynamiczne</span>
+
+<span class="v">d</span>    = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]           <span class="c">' Tablica kosztów dojścia</span>
+<span class="v">p</span>    = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]           <span class="c">' Tablica poprzedników</span>
+<span class="v">QS</span>   = <span class="i">New</span> <span class="i">Byte</span> [<span class="v">n</span>]              <span class="c">' Zbiory Q i S</span>
+<span class="v">graf</span> = <span class="i">New</span> <span class="v">slistEl</span> <span class="i">Ptr</span> [<span class="v">n</span>]       <span class="c">' Tablica list sąsiedztwa</span>
+<span class="v">S</span>    = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]           <span class="c">' Stos</span>
+<span class="v">h</span>    = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]           <span class="c">' Kopiec</span>
+<span class="v">hp</span>   = <span class="i">New</span> <span class="i">Integer</span> [<span class="v">n</span>]           <span class="c">' Pozycje w kopcu</span>
+<span class="v">sptr</span> = <span class="n">0</span>                         <span class="c">' Wskaźnik stosu</span>
+
+<span class="c">' Inicjujemy tablice dynamiczne</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+  <span class="v">d</span>[<span class="v">i</span>] = <span class="v">MAXINT</span>
+  <span class="v">p</span>[<span class="v">i</span>] = -<span class="n">1</span>
+  <span class="v">QS</span>[<span class="v">i</span>] = <span class="n">0</span>
+  <span class="v">graf</span>[<span class="v">i</span>] = <span class="n">0</span>
+  <span class="v">h</span>[<span class="v">i</span>] = <span class="v">i</span>
+  <span class="v">hp</span>[<span class="v">i</span>] = <span class="v">i</span>
+<span class="i">Next</span>
+
+<span class="v">hlen</span> = <span class="v">n</span>
+
+<span class="c">' Odczytujemy dane wejściowe</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">m</span> - <span class="n">1</span>
+  <span class="i">Input</span> #<span class="n">1</span>,<span class="v">x</span>,<span class="v">y</span>,<span class="v">w</span>                  <span class="c">' Odczytujemy krawędź z wagą</span>
+  <span class="v">pw</span> = <span class="i">New</span> <span class="v">slistEl</span>                <span class="c">' Tworzymy element listy sąsiedztwa</span>
+  <span class="v">pw</span>-&gt;<span class="v">v</span> = <span class="v">y</span>                       <span class="c">' Wierzchołek docelowy krawędzi</span>
+  <span class="v">pw</span>-&gt;<span class="v">w</span> = <span class="v">w</span>                       <span class="c">' Waga krawędzi</span>
+  <span class="v">pw</span>-&gt;<span class="i">Next</span> = <span class="v">graf</span>[<span class="v">x</span>]
+  <span class="v">graf</span>[<span class="v">x</span>] = <span class="v">pw</span>                    <span class="c">' Element dołączamy do listy</span>
+<span class="i">Next</span>
+
+<span class="i">Close</span> #<span class="n">1</span>
+
+<span class="i">Print</span>
+
+<span class="v">d</span>[<span class="v">v</span>] = <span class="n">0</span>                          <span class="c">' Koszt dojścia v jest zerowy</span>
+<span class="i">Swap</span> <span class="v">h</span>[<span class="n">0</span>],<span class="v">h</span>[<span class="v">v</span>]                    <span class="c">' odtwarzamy własność kopca</span>
+<span class="v">hp</span>[<span class="v">v</span>] = <span class="n">0</span>: <span class="v">hp</span>[<span class="n">0</span>] = <span class="v">v</span>
+
+<span class="c">' Wyznaczamy ścieżki</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+
+  <span class="v">u</span> = <span class="v">h</span>[<span class="n">0</span>]                        <span class="c">' Korzeń kopca jest zawsze najmniejszy</span>
+
+  <span class="c">' Usuwamy korzeń z kopca, odtwarzając własność kopca</span>
+
+  <span class="v">hlen</span> -= <span class="n">1</span>
+  <span class="v">h</span>[<span class="n">0</span>] = <span class="v">h</span>[<span class="v">hlen</span>]                  <span class="c">' W korzeniu umieszczamy ostatni element</span>
+  <span class="v">hp</span>[<span class="v">h</span>[<span class="n">0</span>]] = <span class="n">0</span>                    <span class="c">' Zapamiętujemy pozycję elementu w kopcu</span>
+  <span class="v">parent</span> = <span class="n">0</span>
+
+  <span class="i">While</span> <span class="n">1</span>                         <span class="c">' W pętli idziemy w dół kopca, przywracając go</span>
+    <span class="v">leftc</span>  = <span class="v">parent</span> + <span class="v">parent</span> + <span class="n">1</span>  <span class="c">' Pozycja lewego potomka</span>
+    <span class="v">rightc</span> = <span class="v">leftc</span> + <span class="n">1</span>            <span class="c">' Pozycja prawego potomka</span>
+    <span class="i">If</span> <span class="v">leftc</span> &gt;= <span class="v">hlen</span> <span class="i">Then</span> <span class="i">Exit</span> <span class="i">While</span> <span class="c">' Kończymy, jeśli lewy potomek poza kopcem</span>
+    <span class="v">dmin</span> = <span class="v">d</span>[<span class="v">h</span>[<span class="v">Leftc</span>]]             <span class="c">' Wyznaczamy mniejszego potomka</span>
+    <span class="v">pmin</span> = <span class="v">Leftc</span>
+    <span class="i">If</span> (<span class="v">rightc</span> &lt; <span class="v">hlen</span>) <span class="i">Andalso</span> (<span class="v">dmin</span> &gt; <span class="v">d</span>[<span class="v">h</span>[<span class="v">rightc</span>]]) <span class="i">Then</span>
+      <span class="v">dmin</span> = <span class="v">d</span>[<span class="v">h</span>[<span class="v">rightc</span>]]
+      <span class="v">pmin</span> = <span class="v">rightc</span>
+    <span class="i">End</span> <span class="i">If</span>
+    <span class="i">If</span> <span class="v">d</span>[<span class="v">h</span>[<span class="v">parent</span>]] &lt;= <span class="v">dmin</span> <span class="i">Then</span> <span class="i">Exit</span> <span class="i">While</span> <span class="c">' Jeśli własność kopca zachowana, kończymy</span>
+    <span class="i">Swap</span> <span class="v">h</span>[<span class="v">parent</span>],<span class="v">h</span>[<span class="v">pmin</span>]                     <span class="c">' Przywracamy własność kopca</span>
+    <span class="v">hp</span>[<span class="v">h</span>[<span class="v">parent</span>]] = <span class="v">parent</span>: <span class="v">hp</span>[<span class="v">h</span>[<span class="v">pmin</span>]] = <span class="v">pmin</span> <span class="c">' na danym poziomie</span>
+    <span class="v">parent</span> = <span class="v">pmin</span>                 <span class="c">' i przechodzimy na poziom niższy kopca</span>
+  <span class="i">Wend</span>
+  
+  <span class="c">' Znaleziony wierzchołek przenosimy do S</span>
+
+  <span class="v">QS</span>[<span class="v">u</span>] = <span class="n">1</span>
+
+  <span class="c">' Modyfikujemy odpowiednio wszystkich sąsiadów u, którzy są w Q</span>
+
+  <span class="v">pw</span> = <span class="v">graf</span>[<span class="v">u</span>]
+  <span class="i">While</span> <span class="v">pw</span>
+    <span class="i">If</span> (<span class="v">QS</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="n">0</span>) <span class="i">Andalso</span> (<span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] &gt; <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>) <span class="i">Then</span>
+      <span class="v">d</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">d</span>[<span class="v">u</span>] + <span class="v">pw</span>-&gt;<span class="v">w</span>
+      <span class="v">p</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>] = <span class="v">u</span>
+      
+      <span class="c">' Po zmianie d[v] odtwarzamy własność kopca, idąc w górę</span>
+
+      <span class="v">child</span> = <span class="v">hp</span>[<span class="v">pw</span>-&gt;<span class="v">v</span>]
+      <span class="i">While</span> <span class="v">child</span> &gt; <span class="n">0</span>
+        <span class="v">parent</span> = <span class="v">child</span> \ <span class="n">2</span>
+        <span class="i">If</span> <span class="v">d</span>[<span class="v">h</span>[<span class="v">parent</span>]] &lt;= <span class="v">d</span>[<span class="v">h</span>[<span class="v">child</span>]] <span class="i">Then</span> <span class="i">Exit</span> <span class="i">While</span>
+        <span class="i">Swap</span> <span class="v">h</span>[<span class="v">parent</span>],<span class="v">h</span>[<span class="v">child</span>]
+        <span class="v">hp</span>[<span class="v">h</span>[<span class="v">parent</span>]] = <span class="v">parent</span>: <span class="v">hp</span>[<span class="v">h</span>[<span class="v">child</span>]] = <span class="v">child</span>
+        <span class="v">child</span> = <span class="v">parent</span>
+      <span class="i">Wend</span>
+    <span class="i">End</span> <span class="i">If</span>
+    <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="i">Next</span>
+  <span class="i">Wend</span>
+<span class="i">Next</span>
+
+<span class="c">' Gotowe, wyświetlamy wyniki</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+  <span class="i">Print</span> <span class="v">i</span>;<span class="t">":"</span>;
+
+  <span class="c">' Ścieżkę przechodzimy od końca ku początkowi,</span>
+  <span class="c">' Zapisując na stosie kolejne wierzchołki</span>
+
+  <span class="v">j</span> = <span class="v">i</span>
+  <span class="i">While</span> <span class="v">j</span> &gt; -<span class="n">1</span>
+    <span class="v">S</span>[<span class="v">sptr</span>] = <span class="v">j</span>
+    <span class="v">sptr</span> += <span class="n">1</span>
+    <span class="v">j</span> = <span class="v">p</span>[<span class="v">j</span>]
+  <span class="i">Wend</span>
+
+  <span class="c">' Wyświetlamy ścieżkę, pobierając wierzchołki ze stosu</span>
+
+  <span class="i">While</span> <span class="v">sptr</span> &gt; <span class="n">0</span>
+    <span class="v">sptr</span> -= <span class="n">1</span>
+    <span class="i">Print</span> <span class="v">S</span>[<span class="v">sptr</span>];
+  <span class="i">Wend</span>
+
+  <span class="c">' Na końcu ścieżki wypisujemy jej koszt</span>
+
+  <span class="i">Print</span> <span class="i">Using</span> <span class="t">" $&amp;"</span>;<span class="v">d</span>[<span class="v">i</span>]
+<span class="i">Next</span>
+
+<span class="c">' Usuwamy tablice dynamiczne</span>
+
+<span class="i">Delete</span> [] <span class="v">d</span>
+<span class="i">Delete</span> [] <span class="v">p</span>
+<span class="i">Delete</span> [] <span class="v">QS</span>
+<span class="i">Delete</span> [] <span class="v">S</span>
+<span class="i">Delete</span> [] <span class="v">h</span>
+<span class="i">Delete</span> [] <span class="v">hp</span>
+
+<span class="i">For</span> <span class="v">i</span> = <span class="n">0</span> <span class="i">To</span> <span class="v">n</span> - <span class="n">1</span>
+  <span class="v">pw</span> = <span class="v">graf</span>[<span class="v">i</span>]
+  <span class="i">While</span> <span class="v">pw</span>
+    <span class="v">rw</span> = <span class="v">pw</span>
+    <span class="v">pw</span> = <span class="v">pw</span>-&gt;<span class="i">Next</span>
+    <span class="i">Delete</span> <span class="v">rw</span>
+  <span class="i">Wend</span>
+<span class="i">Next</span>
+
+<span class="i">Delete</span> [] <span class="v">graf</span>
+
+<span class="i">End</span> </pre></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align: center" bgcolor="#F0F0F0"><b>Wynik</b></td>
+			</tr>
+			<tr>
+				<td style="text-align: left" class="program">0 6 9<br>
+				0 1 3<br>
+				0 4 3<br>
+				1 2 1<br>
+				2 3 3<br>
+				2 5 1<br>
+				3 1 3<br>
+				4 5 2<br>
+				5 0 6<br>
+				5 3 1<br>
+				<br>
+				0: 0 $0<br>
+				1: 0 1 $3<br>
+				2: 0 1 2 $4<br>
+				3: 0 4 5 3 $6<br>
+				4: 0 4 $3<br>
+				5: 0 4 5 $5</td>
+			</tr>
+		</tbody></table></div>
+
+<p>&nbsp;</p>
+</div>
+<div class="bl1">
+  
+<hr size="1" color="#C0C0C0">
+<br>
+<div class="bl1">
+  <form name="frmadminemail" action="/phpscripts/email_admin.php" method="POST" class="bs1">
+    <input name="adminemail_tytul" value="Algorytmy i Struktury Danych - Algorytm Dijkstry" type="hidden">
+    <div align="center">
+    <h3 style="text-align: center">List do administratora Serwisu Edukacyjnego I LO</h3>
+      <table style="border-collapse: collapse" border="0" cellpadding="4">
+	<tbody><tr>
+	  <td align="right">Twój email:</td>
+	  <td><input class="respond" name="adminemail_adres" size="44" onchange="sprawdz_adres()" onkeyup="sprawdz_adres()" onkeypress="sprawdz_adres()" type="text"> <span class="t">(jeśli chcesz otrzymać odpowiedź)</span></td>
+	</tr>
+	<tr>
+	  <td align="right">Temat:</td>
+	  <td><input class="respond" name="adminemail_temat" size="44" onchange="sprawdz_temat()" onkeyup="sprawdz_temat()" onkeypress="sprawdz_temat()" type="text"></td>
+	</tr>
+	<tr>
+	  <td align="right"><span class="t">Uwaga:</span></td>
+	  <td><input class="respond" name="adminemail_sp" size="10" onchange="sprawdz_sp()" onkeyup="sprawdz_sp()" onkeypress="sprawdz_sp()" type="text"> <b>&#8592; tutaj wpisz wyraz 
+      <span style="background-color: #FFFFFF">&nbsp;<font color="#FF0000">ilo</font> 
+      </span>&nbsp;, inaczej list zostanie <span class="t">zignorowany</span></b></td>
+	</tr>
+      </tbody></table>
+    </div>
+      <p style="text-align: center" align="right">Poniżej wpisz swoje uwagi lub pytania dotyczące tego rozdziału <span class="rem">(max. 2048 znaków)</span>.</p>
+      <p style="text-align: center" align="right"><textarea rows="10" name="adminemail_wiadomosc" cols="80" class="respond" onchange="zlicz_znaki()" onkeyup="zlicz_znaki()" onkeypress="zlicz_znaki()"></textarea></p>
+      <p style="text-align: center" align="right">Liczba znaków do wykorzystania: <span id="char_count">2048</span></p>
+      <p style="text-align: center" align="right"><input value="Wyślij" type="submit"> <input value="Kasuj" type="reset"></p>
+    <input name="feedback" value="/inf/alg/001_search/0138.php" type="hidden">
+
+<script type="text/javascript">
+function zlicz_znaki()
+{
+   a = 2048-document.frmadminemail.adminemail_wiadomosc.value.length
+   if(a < 0)
+   {
+      wiadomosc = document.frmadminemail.adminemail_wiadomosc.value
+      wiadomosc = wiadomosc.substr(0,2048)
+      document.frmadminemail.adminemail_wiadomosc.value = wiadomosc
+      a = 0
+   }
+   document.getElementById("char_count").innerHTML = a;
+}
+
+function sprawdz_adres()
+{
+   if(document.frmadminemail.adminemail_adres.value.length > 128)
+   {
+      wiadomosc = document.frmadminemail.adminemail_adres.value
+      wiadomosc = wiadomosc.substr(0,128)
+      document.frmadminemail.adminemail_adres.value = wiadomosc
+   }
+}
+
+function sprawdz_temat()
+{
+   if(document.frmadminemail.adminemail_temat.value.length > 256)
+   {
+      wiadomosc = document.frmadminemail.adminemail_temat.value
+      wiadomosc = wiadomosc.substr(0,256)
+      document.frmadminemail.adminemail_temat.value = wiadomosc
+   }
+}
+
+function sprawdz_sp()
+{
+   if(document.frmadminemail.adminemail_sp.value.length > 3)
+   {
+      wiadomosc = document.frmadminemail.adminemail_sp.value
+      wiadomosc = wiadomosc.substr(0,3)
+      document.frmadminemail.adminemail_sp.value = wiadomosc
+   }
+}
+
+</script>
+
+  </form>
+<p style="text-align: center"><b><span class="t">W związku z dużą liczbą
+ listów do naszego serwisu edukacyjnego nie będziemy udzielać odpowiedzi
+ na prośby rozwiązywania zadań, pisania programów zaliczeniowych, 
+przesyłania materiałów czy też tłumaczenia zagadnień szeroko opisywanych
+ w podręcznikach.</span></b></p>
+</div>
+<br>
+<hr size="1" color="#C0C0C0">
+<div align="left">
+  <table style="float: right; BORDER-COLLAPSE: collapse; padding-left:8px; padding-right:8px; padding-top:1px; padding-bottom:1px; cellPadding=" 4"="" border="0">
+    <tbody><tr>
+      <td><img src="Algorytmy%20i%20Struktury%20Danych%20-%20Algorytm%20Dijkstry_files/i-lo_budynek.jpg"></td><td valign="top"><p style="text-align: center" align="center">&nbsp;&nbsp;&nbsp;I Liceum Ogólnokształcące&nbsp;&nbsp;&nbsp;<br><span class="small">im. Kazimierza Brodzińskiego<br> w Tarnowie</span><br><span class="small">(C)2015 mgr Jerzy Wałaszek</span></p></td>
+    </tr>
+  </tbody></table>
+</div>
+<span class="small">Dokument ten rozpowszechniany jest zgodnie z zasadami licencji<br>
+<b>GNU Free Documentation License</b>.</span>
+<script language="javascript">
+  document.frmadminemail.adminemail_tytul.value = document.title;
+</script>
+<br><br><br><br><br></div>
+
+<script type="text/javascript">pcba()</script>
+
+
+</body></html>

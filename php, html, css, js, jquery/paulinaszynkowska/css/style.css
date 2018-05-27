@@ -1,0 +1,205 @@
+* {
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: #fefefe;
+    font-family: Century Gothic;
+    font-size: 12px;
+}
+
+#header {
+    background-image: url(../images/header.jpg);
+    background-repeat: no-repeat;
+    width: 891px;
+    height: 215px;
+    margin: auto;
+}
+
+#menu {
+    width: 891px;
+    height: 37px;
+    margin: auto;
+}
+
+#menu ul {
+    list-style: none;
+	display: block;
+}
+
+#menu li {
+    float: left;
+    display: block;
+    color: #7e7e7e;
+    font-size: 18px;
+    text-align: center;
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: #7e7e7e;
+    font-size: 18px;
+    display: block;
+    padding: 8px 22px;
+}
+
+#menu ul li a:hover {
+    background-image: url(../images/menu-back.jpg);
+}
+
+#menu #psychotherapy {
+    cursor: pointer;
+    width: 173px;
+    height: 32px;
+    padding-top: 7px;
+}
+
+#menu #psychotherapy:hover {
+     background-image: url(../images/menu-back.jpg);
+     font-weight: bold;  
+}
+
+.menu-back {
+    background-image: url(../images/menu-back.jpg);
+    background-repeat: no-repeat;
+    width: 1px;
+    height: 27px;
+    margin-top: 7px;
+}
+
+.psychotherapy-hover {
+    background-image: url(../images/menu-back.jpg);
+    font-weight: bold;  
+}
+
+#submenu {
+    width: 174px;
+    margin: auto;
+    position: relative;
+    z-index: 99;
+    top: 33px;
+    left: -3.5px;
+}
+
+#submenu ul {
+    list-style: none;
+    display: block;
+    position: absolute;
+    background-color: #d7eaff;
+    padding-bottom: 5px;
+}
+
+#submenu li {
+    float: inherit;
+    width: 174px;
+    padding: 1px 0;
+}
+
+#submenu ul li a {
+    text-decoration: none;
+    color: #7e7e7e;
+    width: 174px;
+    position: relative;
+    left: -27px;
+    font-size: 14px;
+}
+
+#submenu ul li a:hover {
+    background: none;
+    opacity: 0.8;
+}
+
+#line {
+    background-image: url(../images/line.jpg);
+    background-repeat: no-repeat;
+    width: 891px;
+    height: 2px;
+    margin: auto;
+}
+
+#main {
+    width: 891px;
+    margin: auto;
+}
+
+#left-box {
+    float: left;
+    padding: 30px 10px;
+    width: 620px;
+}
+
+#left-box .box-border {
+    background-image: url(../images/left-box-up.jpg);
+    background-repeat: no-repeat;
+    width: 630px;
+    height: 4px;    
+}
+
+#left-box #box-back {
+    background-image: url(../images/box-back.jpg);
+    background-repeat: repeat-y;    
+}
+
+#left-box #box-back #box-text {
+    padding: 15px;    
+}
+
+#workshops {
+    float: right;
+    padding: 50px 10px;
+    width: 180px;
+}
+
+#workshops #workshops-up {
+    background-image: url(../images/workshops-up.jpg);
+    background-repeat: no-repeat;
+    width: 182px;
+    height: 2px;
+}
+
+#workshops #workshops-back {
+    background-image: url(../images/workshops-back.jpg);
+    background-repeat: repeat-y;
+    height: 100%;
+    width: 182px;
+}
+
+#workshops #workshops-back #workshops-next {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 0;
+}
+
+#workshops #workshops-back #workshops-liks {
+    text-align: center;
+    padding: 0 5px 15px 5px;
+    list-style: none;
+}
+
+#workshops #workshops-back #workshops-liks li {
+    padding: 5px 0;     
+}
+
+#workshops #workshops-back #workshops-liks a {
+    text-decoration: none;
+    color: #000000;    
+}
+
+#workshops #workshops-down {
+    background-image: url(../images/workshops-down.jpg);
+    background-repeat: no-repeat;
+    width: 182px;
+    height: 68px;
+}
+
+#footer {
+    background-image: url(../images/footer.jpg);
+    background-repeat: no-repeat;
+    width: 891px;
+    height: 200px;
+    margin: auto;
+    clear: both;
+}

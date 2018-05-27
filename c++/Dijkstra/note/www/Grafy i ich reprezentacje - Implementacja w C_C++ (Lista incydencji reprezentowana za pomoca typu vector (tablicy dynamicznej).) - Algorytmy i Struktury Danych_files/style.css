@@ -1,0 +1,142 @@
+.confused,.cool,.cry,.laugh,.lol,.normal,.redface,.rolleyes,.sad,.shocked,.sick,.sleeping,.smile,.smiles,.surprised,.tongue,.unsure,.whistling,.wink{width:18px;height:18px;background:url(images/smiles.gif);display:inline-block}
+.cool{background-position:0px -18px}
+.cry{background-position:0px -36px}
+.laugh{background-position:0px -54px}
+.lol{background-position:0px -72px}
+.normal{background-position:0px -90px}
+.redface{background-position:0px -108px}
+.rolleyes{background-position:0px -126px}
+.sad{background-position:0px -144px}
+.shocked{background-position:0px -162px}
+.sick{background-position:0px -180px}
+.sleeping{background-position:0px -198px}
+.smile{background-position:0px -223px}
+.smiles{background-position:0px -241px}
+.surprised{background-position:0px -259px}
+.tongue{background-position:0px -277px}
+.unsure{background-position:0px -295px}
+.whistling{background-position:0px -313px}
+.wink{background-position:0px -313px}
+.jcomments-links{clear:both;margin-top:10px;text-align:left}
+.comment-link, .readmore-link{background-image:url(images/jc_blog.gif);background-repeat:no-repeat;padding:0 5px 5px 14px}
+.comment-link{background-position:0 -27px}
+.readmore-link{background-position:0 2px}
+#jc a:link, #jc a:visited, #jc a:hover{outline:none}
+#jc .clear{clear:both;height:1px;overflow:hidden}
+#jc .busy{background:url(images/jc_busy.gif) no-repeat;display:none;height:16px;margin:3px auto;padding:0;width:16px}
+#jc h4{border-bottom:2px solid #ddd;font-weight:bold;margin-bottom:15px;padding:0 0 5px 0;text-align:left;text-transform:uppercase;font-size:125%}
+#jc p.message{background-color:inherit;background-image:none;border-top:1px solid #D2DADB;color:#777;padding:5px 0 0 0;text-align:center;text-decoration:none;text-indent:0;text-transform:none}
+#comments{margin:0;padding:0;text-align:left;text-decoration:none;text-indent:0;text-transform:none;width:100%}
+#comments a[rel*=external]{background:url(images/jc_link.gif) no-repeat center right;margin:0 2px;padding:0 10px 0 0}
+#comments .rss, #comments .refresh, #comments .subscribe{border:none;display:block;float:left}
+#comments .rss{background:url(images/icon-feed.png) no-repeat 7px center;border-left:1px solid #ddd;margin-left:10px;padding:0 0 0 25px}
+#comments .refresh{background:url(images/icon-refresh.png) no-repeat center left;padding:0 0 0 20px}
+#comments .subscribe{background:url(images/icon-email.png) no-repeat 7px center;border-left:1px solid #ddd;margin-left:10px;padding:0 0 0 25px}
+#comments h4 .rss, #comments h4 .refresh{border:0;display:inline;margin:0 0 0 5px;padding:3px 10px 3px 10px;float:none}
+#comments-list-footer{background:#fcfcfc;margin:15px 0 10px 0;padding:5px 10px}
+#comments-form-link .showform{background:url(images/jc_blog.gif) no-repeat 0 -28px;border:none;display:block;font-weight:bold;margin:5px 0 0 22px;padding:0 0 5px 14px}
+#comments .comment-box{color:#999;margin:0;padding:0}
+#comments .comment-avatar{float:left;margin:0;padding:0}
+#comments .avatar-indent{padding-left:60px}
+#comments .comment-anchor{border:none;color:#777;text-decoration:none}
+#comments .comment-author, #comments .author-homepage{background:url(images/icon-user.png) no-repeat 5px 0px;border-left:1px solid #ddd;margin:0 0 0 5px;padding:0 0 0 25px;font-weight:bold;font-size:110%}
+#comments .comment-title{color:#b01625;margin:0;padding:0}
+#comments .comment-avatar img{background-color:#fff;border:1px solid #f0f0f0;width:32px;padding:4px}
+#comments .comment-date{background:url(images/icon-date.png) no-repeat 5px 0px;border-left:1px solid #ddd;color:#999;font-weight:bold;height:16px;line-height:16px;margin:0 0 0 5px;padding:0 0 0 25px}
+#comments .comment-body{border-top:1px solid #ddd;color:#777;margin:10px 0 0;padding:10px 0 2px}
+#comments .quote, #comments blockquote, #comments .code, #comments code, #comments pre{background-image:none;clear:both;display:block;margin:5px 0 5px 10px}
+#comments blockquote, #comments .hidden, #comments code, #comments pre{color:#849B9F;margin-bottom:8px;padding:8px;text-align:left}
+#comments blockquote, #comments .hidden{background:url(images/icon-quote.png) no-repeat 10px 10px #ffffcc;border:1px dashed #ddd;padding:15px 10px 10px 50px}
+#comments code, #comments pre{border:1px solid #dedede;overflow:hidden;white-space:normal}
+#comments .code{background:none;border:none;padding:0}
+#comments .quote{color:#777;font-weight:bold}
+#comments .hidden{clear:both;display:block;margin:5px 0}
+#comments .comments-buttons{float:right;height:15px;font-weight:bold;padding-left:16px}
+#comments .comments-buttons a{font-weight:bold}
+#comments .email, #comments .emailactive{border-bottom:1px dotted #999;cursor:pointer;font:normal 1em Verdana, Arial, Sans-Serif;line-height:10px;margin:0;padding:0;text-decoration:none;white-space:normal}
+#comments .email{background-color:inherit;color:#444}
+#comments .emailactive{background-color:inherit;color:#cc0000}
+#comments .email img, #comments .emailactive img{padding:0}
+#comments p{margin:5px 5px 5px 0;padding:0;text-decoration:none;text-indent:0;text-transform:none}
+#comments .comment-body img{border:0 none;padding:0}
+#comments .comment-body .img{max-width:500px;padding:4px 0 !important}
+#comments .toolbar{border-top:1px solid #EDEDED;clear:both;color:#ccc;margin:8px 0 0 0;padding:10px 0 0 0}
+#comments .toolbar img{cursor:pointer;margin:0 4px 0 0;padding:0}
+#comments .comments-list{height:1%}
+#comments .comments-list .comments-list{margin-left:40px}
+#comments .even, #comments .odd{margin-left:0px;padding:0}
+#comments .odd .rbox{background:#F0F1FF;border-top:1px solid #DEDEDE;border-bottom:1px solid #DEDEDE}
+#comments-list .comments-inline-edit{background-color:#fff;border:1px solid #ccc;color:inherit;margin:5px 0;padding:5px}
+#comments-form, #comments-form p, #comments-form .comments-policy, #comments-form span, #comments-form .counter{text-align:left;text-decoration:none;text-indent:0;text-transform:none}
+#comments-form p, #comments-form span, #comments-form .counter{color:#777}
+#comments-form p, #comments-form #comments-form-buttons, #comments-form #comments-form-error{margin-bottom:8px;margin-top:10px;overflow:hidden;padding:0}
+#comments-inline-edit{background:#fff;border:1px solid #ccc;margin:15px 0 0 0;padding:15px}
+#comments-inline-edit #comments-form p, #comments-inline-edit #comments-form #comments-form-buttons, #comments-inline-edit #comments-form-error{margin-bottom:2px;margin-left:5px;margin-left:5px !important;margin-top:5px;padding:0}
+#comments-form div.comments-policy{background-color:inherit;border:1px dotted #ccc;color:#777;margin-bottom:5px;margin-left:20px;margin-left:20px !important;margin-top:5px;padding:5px}
+#comments-form div.comments-policy ol, #comments-form div.comments-policy ul{line-height:5px;margin:0;padding:5px 0 0 20px}
+#comments-form div.comments-policy ol li, #comments-form div.comments-policy ul li{border:none;line-height:5px;margin:0;padding:0}
+#comments-form img.smile{border:none;cursor:pointer;margin:0 3px 3px 0;padding:0}
+#comments-form img.captcha{border:1px solid #ccc}
+#comments-form span.captcha{background:url(images/jc_refreshg.gif) no-repeat 0 2px;cursor:pointer;padding:0 0 0 12px}
+#comments-form label{color:#777;line-height:1.5em;margin:0;padding:0 0 0 5px;font-weight:bold;vertical-align:middle}
+#comments-form input.error, #comments-form textarea.error{background-color:#ffffe0;border:1px solid #f00;text-decoration:none;text-transform:none}
+#comments-form input.checkbox{border:none;line-height:1.5em;margin:0;padding:0;vertical-align:middle;width:16px}
+#comments-form input.captcha{width:116px}
+#comments-form textarea{margin:0;max-width:400px !important;width:350px}
+#comments-form #comments-form-message, #comments-inline-edit #comments-form-message{display:block;margin-right:5px;padding:5px 5px 5px 25px}
+.comments-form-message-error{background:#FFD86F url(images/jc_error.gif) no-repeat 4px 50%}
+.comments-form-message-info{background:#DFEEFF url(images/jc_info.gif) no-repeat 4px 50%}
+#comments-form .counterpanel{background-color:#eee;border:1px solid #ddd;border-top-width:0;color:#ccc;display:block;height:13px;margin:0;max-width:400px !important;overflow:hidden;padding:0;width:350px}
+#comments-form .grippie{background:#eee;border:1px solid #ddd;border-top-width:0;color:#ccc;cursor:s-resize;display:block;height:20px;line-height:20px;margin:0;max-width:400px !important;overflow:hidden;padding:0 0 0 5px;width:345px}
+#comments-form .grippie .counter{font-size:10px;margin:0;padding:0}
+#comments-form .grippie span{display:block;float:left}
+#comments-form .grippie span span{display:inline;float:none}
+#comments-form-smilespanel{background-color:#fff;border:1px solid #ccc;cursor:pointer;display:none;left:0;max-width:200px;overflow:auto;padding:2px;position:absolute;top:0}
+#comments-footer, #comments-footer a{background-color:inherit;color:#ccc !important}
+#comments-footer{border-top:1px solid #ddd;display:block;height:20px;margin-top:15px;padding-top:5px;text-align:right}
+#comments-footer a{background:none !important;border:none !important;float:right;margin:0;padding:0;text-decoration:none !important;text-transform:none}
+body #jc #nav-bottom, body #jc #nav-top{height:auto !important;line-height:17px;line-height:19px !important;text-align:center}
+#jc #nav-bottom span.page, #jc #nav-top span.page{background-color:#eee;border:1px solid #d6dadd;color:#777}
+#jc #nav-bottom span.hoverpage, #jc #nav-top span.hoverpage{background-color:#e8e9ea;border:1px solid #d6dadd;color:#777}
+#jc #nav-bottom span, #jc #nav-top span{background-color:inherit;color:#777;cursor:pointer;font-size:10px;height:15px;margin:0 2px;padding:2px 8px;vertical-align:top}
+#jc #nav-bottom span.activepage, #jc #nav-top span.activepage{background-color:#fff;color:inherit}
+#jc div#nav-bottom, #jc div#nav-top{position:relative;width:100%;z-index:2}
+#jc div#nav-bottom{background:url(images/jc_dot.gif) repeat-x top left;margin:10px 0 0 0;padding:0}
+#jc #nav-bottom span.activepage{border-bottom:1px solid #d6dadd;border-left:1px solid #d6dadd;border-right:1px solid #d6dadd;border-top:1px solid white}
+#jc div#nav-top{background:url(images/jc_dot.gif) repeat-x bottom;margin:10px 0}
+#jc #nav-top span.activepage{border-bottom:1px solid white;border-left:1px solid #d6dadd;border-right:1px solid #d6dadd;border-top:1px solid #d6dadd}
+#jc span.comments-vote{float:right;height:15px;width:6em}
+#jc span.comments-vote a{background-image:url(images/jc_vote.gif);background-repeat:no-repeat;border:none !important;display:block;float:left;height:14px;margin:0 3px 0 0;text-decoration:none;width:15px}
+#jc span.comments-vote .busy{float:right;margin:0;width:16px}
+#jc .vote-good{background-position:0 0}
+#jc .vote-poor{background-position:-15px 0}
+#jc span.vote-good,#jc span.vote-poor,#jc span.vote-none{float:right;font:bold 1em Verdana, Arial, Sans-Serif;line-height:14px;margin:0}
+#jc span.vote-good{color:#339900}
+#jc span.vote-poor{color:#CC0000}
+#jc span.vote-none{color:#A9A9A9}
+#jc span.bbcode{display:block;height:23px;margin-bottom:5px;width:auto}
+#jc .bbcode a, #jc .bbcode a:focus, #jc .bbcode a:active, #jc .bbcode a:hover{background-color:transparent !important;background-image:url(images/jc_bbcode.gif);background-repeat:no-repeat;border:none !important;display:block;float:left;height:23px;margin:0 2px 0 0;text-decoration:none;width:23px}
+#jc a.bbcode-empty{background-position:0 0}
+#jc a.bbcode-b{background-position:-30px 0}
+#jc a.bbcode-i{background-position:-60px 0}
+#jc a.bbcode-u{background-position:-90px 0}
+#jc a.bbcode-s{background-position:-120px 0}
+#jc a.bbcode-url{background-position:-150px 0}
+#jc a.bbcode-img{background-position:-180px 0}
+#jc a.bbcode-list{background-position:-210px 0}
+#jc a.bbcode-hide{background-position:-240px 0}
+#jc a.bbcode-quote{background-position:-270px 0}
+#jc a.bbcode-smile{background-position:-300px 0}
+#jc a.bbcode-youtube{background-position:-330px 0}
+#jc a.bbcode-google{background-position:-360px 0}
+#jc a.bbcode-wiki{background-position:-390px 0}
+#jc span.bbcode img{float:left;height:23px;margin:0 2px 0 0;width:23px}
+#jc .custombbcode{cursor:pointer;display:block;float:left;height:23px;margin:0 2px 0 0;text-decoration:none;width:23px}
+.rbox{background:#fff;margin:0;padding:15px;overflow:hidden;width:auto}
+.rbox div{margin:0px;text-align:left}
+.rbox_tr{display:none}
+.rbox_m{width:auto}
+.rbox_br{display:none}
+* html .clearfix{height:1%}
+html[xmlns] .clearfix{display:block}
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
